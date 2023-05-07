@@ -211,7 +211,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 150vh;
+    height: 110vh;
 }
 
 .divCircle {
@@ -221,18 +221,26 @@
     align-items: center;
 }
 
+#c1 {
+    display: none;
+}
 
-/* .circle {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    height: 200px;
-    color: white;
+#c2 {
+    display: none;
+}
+
+#c3 {
+    display: none;
+}
+
+#c4 {
+    display: none;
+}
+
+#sinPalabrasCve {
     font-weight: 500;
-    height: 500px;
-    width: 500px;
-} */
+    color: #adadad;
+}
 
 .circle {
     /* font-size: 10px; */
@@ -260,6 +268,48 @@
     color: #000;
     cursor: pointer;
 } */
+
+#resultado {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 230vh;
+}
+
+#instaPost {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    /* background-image: linear-gradient( #ABABAB, #c5c5c500); */
+    /* background-image: linear-gradient( #c2c2c2, #494949); */
+    background-color: #000000;
+    /* height: 70vh; */
+    width: 400px;
+    border-radius: 15px;
+    margin: 20px 0;
+    padding: 20px;
+}
+
+.instaIcon {
+    height: 50px;
+}
+
+#imageAnswer {
+    width: 100%;
+    height: 350px;
+    background-color: #616161;
+    margin: 20px 0;
+}
+
+#chatGPTAnswer {
+    margin: 20px 0;
+    /* text-align: justify; */
+    font-weight: 300;
+    color: #ffffff;
+}
 
 
 /** ------------------HEADER--------------- */

@@ -11,125 +11,149 @@
 </head>
 
 <body onload="Inicio()">
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light ">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="{{ url_for('landingPage') }}"><img class="logo" src="." alt=""></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav  menu_header">
-                        <a class="list_item_header" aria-current="page" href="{{ url_for('landingPage') }}"> <img src="{{ url_for('static', filename='img/ANY..svg')}}" alt=""></a>
-                        <!-- <div class="header_space"></div> -->
-                        <a class="list_item_header main_boton" aria-current="page" href="">Prueba ANY</a>
+    <form action="/" method="POST">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light ">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="{{ url_for('landingPage') }}"><img class="logo" src="." alt=""></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav  menu_header">
+                            <a class="list_item_header" aria-current="page" href="{{ url_for('landingPage') }}"> <img src="{{ url_for('static', filename='img/ANY..svg')}}" alt=""></a>
+                            <!-- <div class="header_space"></div> -->
+                            <a class="list_item_header main_boton" aria-current="page" href="">Prueba ANY</a>
+                        </div>
                     </div>
                 </div>
+            </nav>
+        </header>
+
+        <main>
+            <div id="container">
+                <section id="paso1">
+                    <div id="anyTitulo">
+                        <h1 class="gradientLyrics">ANY.</h1>
+                    </div>
+                    <p class="paso"><span>Paso 1.</span> Diseña un anuncio que venda...</p>
+                    <div id="text-container">
+                        <div id="mainTextBox">
+                            <input type="hidden" name="form_name" value="keywordsForm">
+                            <input type="text" class="txt" id="descripcion" placeholder="Describe tu producto/servicio" name="Description"/>
+                            <!-- <a href="#paso2" id="botonTextBox"><img src="../img/arrow-forward-rounded.svg" alt=""></a> -->
+                        </div>
+                        <p class="numChar"><span></span> / 50 caracteres</p>
+
+                        <a href="#paso2" class="boton">Siguiente</a>
+                        <!-- <button href="#paso2" </button> -->
+                    </div>
+                </section>
+
+                <section id="paso2">
+                    <p class="paso"><span>Paso 2. </span>Elige los colores de tu anuncio (máximo 3)</p>
+                    <p id="subtitulo">Da clic sobre el recuadro para cambiar el color</p>
+                    <div id="colors">
+                        <h3 id="menos" class="btnP2" onclick="deleteColor()">-</h3>
+                        <input type="color" id="color1" class="color-input" name="color1">
+                        <input type="color" id="color2" class="color-input" name="color2">
+                        <input type="color" id="color3" class="color-input" name="color3">
+                        <h3 id="mas" class="btnP2" onclick="addColor()">+</h3>
+                    </div>
+                    <div class="sigBack">
+                        <a href="#paso1" class="boton backBtn ">Atrás</a>
+                        <a href="#paso3" class="boton ">Siguiente</a>
+                    </div>
+                </section>
+
+                <section id="paso3">
+                    <p class="paso"><span>Paso 3.</span> Ingresa 4 palabras clave para tu anuncio, ya sea precio, característica o sentimiento.</p>
+
+                    <div id="palabras">
+                        <div class="textContainerP3">
+                            <input type="text" id="text-input1" class="txt txtP3" placeholder="Palabra clave 1" name="keyword1"/>
+                            <!-- <p class="numChar"><span></span> / 50 caracteres</p> -->
+
+                            <input type="text" id="text-input2" class="txt txtP3" placeholder="Palabra clave 2" name="keyword2"/>
+                        </div>
+                        <div class="textContainerP3">
+                            <input type="text" id="text-input3" class="txt txtP3" placeholder="Palabra clave 3" name="keyword3"/>
+                            <input type="text" id="text-input4" class="txt txtP3" placeholder="Palabra clave 4" name="keyword4"/>
+                        </div>
+                    </div>
+
+                    <div class="sigBack">
+                        <a href="#paso2" class="boton backBtn ">Atrás</a>
+                        <a href="#paso4" id="add-button" class="boton">Siguiente</a>
+                    </div>
+                </section>
+
+                <section id="paso4">
+                    <!-- <section id="paso4" onload="step3()"> -->
+                    <p class="paso"><span>Paso 4.</span> Da clic en las palabras clave para darles más relevancia al momento de crear el anuncio </p>
+
+                    <!-- <button id="add-button" class="boton">Agregar Palabra Clave</button> -->
+                    <!-- <div id="circle-container"></div> -->
+
+                    <p id="sinPalabrasCve">No escribiste palabras clave</p>
+
+                    <div class="divCircle">
+                        <div class="circle" id="c1" onclick="step4_clicPalabra('c1')">
+                            <p id="c_op1"></p>
+                        </div>
+                        <div class="circle" id="c2" onclick="step4_clicPalabra('c2')">
+                            <p id="c_op2"></p>
+                        </div>
+                    </div>
+                    <div class="divCircle">
+                        <div class="circle" id="c3" onclick="step4_clicPalabra('c3')">
+                            <p id="c_op3"></p>
+                        </div>
+                        <div class="circle" id="c4" onclick="step4_clicPalabra('c4')">
+                            <p id="c_op4"></p>
+                        </div>
+                    </div>
+
+                    <div class="sigBack">
+                        <a href="#paso3" class="boton backBtn ">Atrás</a>
+                        <!--<a href="#resultado" id="add-button" class="boton">Generar</a>-->
+                        <input type="submit" id="add-button" class="boton" value="Generar">
+                    </div>
+                </section>
+
+                <section id="resultado">
+                    <p class="paso"><span>Tu anuncio está listo</span> <br> Así se vería tu post en instagram</p>
+
+                    <div id="instaPost">
+                        <img class="instaIcon" src="{{ url_for('static', filename='img/profile.svg')}}" alt="">
+                        <img src="" alt="" id="imageAnswer">
+                        <div id="iconsInsta">
+                            <img class="instaIcon" src="{{ url_for('static', filename='img/cards-heart.svg')}}" alt="">
+                            <img class="instaIcon" src="{{ url_for('static', filename='img/comment.svg')}}" alt="">
+                            <img class="instaIcon" src="{{ url_for('static', filename='img/send.svg')}}" alt="">
+                        </div>
+
+                        {% if result %}
+                        <p id="chatGPTAnswer">
+                            {{ result }}
+                        </p>
+                        {% endif %}
+                        
+                    </div>
+
+                    <a href="{{ url_for('static', filename='img/img_resultado/')}}" download="nombre-de-la-imagen.jpg" class="boton">Descargar imagen</a>
+
+                </section>
+
             </div>
-        </nav>
-    </header>
 
-    <main>
-        <div id="container">
-            <section id="paso1">
-                <div id="anyTitulo">
-                    <h1 class="gradientLyrics">ANY.</h1>
-                </div>
-                <p class="paso"><span>Paso 1.</span> Diseña un anuncio que venda...</p>
-                <div id="text-container">
-                    <div id="mainTextBox">
-                        <input type="text" class="txt" id="descripcion" placeholder="Describe tu producto/servicio" />
-                        <!-- <a href="#paso2" id="botonTextBox"><img src="../img/arrow-forward-rounded.svg" alt=""></a> -->
-                    </div>
-                    <p class="numChar"><span></span> / 50 caracteres</p>
+        </main>
 
-                    <a href="#paso2" class="boton">Siguiente</a>
-                    <!-- <button href="#paso2" </button> -->
-                </div>
-            </section>
-
-            <section id="paso2">
-                <p class="paso"><span>Paso 2. </span>Elige los colores de tu anuncio (máximo 3)</p>
-                <p id="subtitulo">Da clic sobre el recuadro para cambiar el color</p>
-                <div id="colors">
-                    <h3 id="menos" class="btnP2" onclick="deleteColor()">-</h3>
-                    <input type="color" id="color1" class="color-input">
-                    <input type="color" id="color2" class="color-input">
-                    <input type="color" id="color3" class="color-input">
-                    <h3 id="mas" class="btnP2" onclick="addColor()">+</h3>
-                </div>
-                <div class="sigBack">
-                    <a href="#paso1" class="boton backBtn ">Atrás</a>
-                    <a href="#paso3" class="boton ">Siguiente</a>
-                </div>
-            </section>
-
-            <section id="paso3">
-                <p class="paso"><span>Paso 3.</span> Ingresa 4 palabras clave para tu anuncio, ya sea precio, característica o sentimiento.</p>
-
-                <div id="palabras">
-                    <div class="textContainerP3">
-                        <input type="text" id="text-input1" class="txt txtP3" placeholder="Palabra clave 1" />
-                        <!-- <p class="numChar"><span></span> / 50 caracteres</p> -->
-
-                        <input type="text" id="text-input2" class="txt txtP3" placeholder="Palabra clave 2" />
-                    </div>
-                    <div class="textContainerP3">
-                        <input type="text" id="text-input3" class="txt txtP3" placeholder="Palabra clave 3" />
-                        <input type="text" id="text-input4" class="txt txtP3" placeholder="Palabra clave 4" />
-                    </div>
-                </div>
-
-                <div class="sigBack">
-                    <a href="#paso2" class="boton backBtn ">Atrás</a>
-                    <a href="#paso4" id="add-button" class="boton">Siguiente</a>
-                </div>
-            </section>
-
-            <section id="paso4">
-                <!-- <section id="paso4" onload="step3()"> -->
-                <p class="paso"><span>Paso 4.</span> Da clic en las palabras clave para darles más relevancia al momento de crear el anuncio </p>
-
-                <!-- <button id="add-button" class="boton">Agregar Palabra Clave</button> -->
-                <!-- <div id="circle-container"></div> -->
-
-                <div class="divCircle">
-                    <div class="circle">
-                        <p id="c_op1"></p>
-                    </div>
-                    <div class="circle">
-                        <p id="c_op2"></p>
-                    </div>
-                </div>
-                <div class="divCircle">
-                    <div class="circle">
-                        <p id="c_op3"></p>
-                    </div>
-                    <div class="circle">
-                        <p id="c_op4"></p>
-                    </div>
-                </div>
-
-                <div class="sigBack">
-                    <a href="#paso3" class="boton backBtn ">Atrás</a>
-                    <a href="#resultado" id="add-button" class="boton">Generar</a>
-                </div>
-            </section>
-
-            <section id="resultado">
-
-
-            </section>
-
-        </div>
-
-    </main>
-
-
-    <!-- *BOOTSTRAP JS INTERNO -->
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js')}} "></script>
-    <script src="{{ url_for('static', filename='js/script_any.js')}} "></script>
-    <!-- <script src="../js/script.js "></script> -->
+    </form>
+        <!-- *BOOTSTRAP JS INTERNO -->
+        <script src="{{ url_for('static', filename='js/bootstrap.min.js')}} "></script>
+        <script src="{{ url_for('static', filename='js/script_any.js')}} "></script>
+        <!-- <script src="../js/script.js "></script> -->
 </body>
 
 </html>
