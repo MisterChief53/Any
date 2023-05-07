@@ -2,6 +2,8 @@ from flask import Flask, render_template, url_for, request, redirect
 import openai
 import os
 from dotenv import load_dotenv
+import base64
+import requests
 load_dotenv()
 importanceArray = [False, False, False, False]
 
@@ -18,20 +20,12 @@ def index():
         keywords.append(request.form["keyword3"])
         keywords.append(request.form["keyword4"])
 
+        colors = []
+        colors.append(request.form["color1"])
+        colors.append(request.form["color2"])
+        colors.append(request.form["color3"])
+
         description = request.form["Description"]
-        '''
-        
-        response = openai.Completion.create(
-            model="text-davinci-003",
-            prompt = generate_prompt(keywords),
-            temperature = 0.6,
-            max_tokens = 0,
-            stop=None
-            #max_tokens = 16
-        )
-        print(response.choices[0].text)
-        return redirect(url_for("index", result=response.choices[0].text))
-        '''
 
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
@@ -41,12 +35,57 @@ def index():
                 ],
             temperature = 0.6,
             #max_tokens = 3000
-            max_tokens = 0
+            max_tokens = 3000
         )
         result = response.choices[0].message.content
         result = result.replace("Hashtags sugeridos:", "")
         result = result.replace("Anuncio:", "")
         print(result)
+
+        #### Dream Studio Part ####
+        engine_id = "stable-diffusion-v1-5"
+        stability_url = f"https://api.stability.ai/v1/generation/{engine_id}/text-to-image"
+        stability_api_key = os.getenv("STABILITY_API_KEY")
+
+        color_list = ""
+        for color in colors:
+            print(color)
+            color_list = color_list + f" {color},"
+        image_prompt = generate_prompt(keywords, description, importanceArray) + f"The image should also prominently feature these colors: "
+
+        response = requests.post(
+            stability_url,
+            headers={
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": f"Bearer {stability_api_key}"
+            },
+            json={
+                "text_prompts": [
+                    {
+                        "text": f"{image_prompt}"
+                    }
+                ],
+                "cfg_scale": 7, #How strictly the image fits the prompt
+                "clip_guidance_preset": "FAST_BLUE",
+                "height": 512,
+                "width": 512,
+                "samples": 1, #How many Images will it return
+                "steps": 30,
+            },
+        )
+
+        if response.status_code != 200:
+            raise Exception("Non-200 response: " + str(response.text))
+
+        img_data = response.json()
+
+        for i, image in enumerate(img_data["artifacts"]):
+            with open(f"./static/img/img_resultado/response_num{i}.png", "wb") as f:
+                f.write(base64.b64decode(image["base64"]))
+
+
+
         return redirect(url_for("index", result=result, _anchor="instaPost"))
         
     
@@ -80,27 +119,6 @@ def importance_endpoint():
     except Exception as e:
         print(e)
         return {'success': False}
-    '''
-    data = request.get_json()
-    importance = data['importance']
-    id = data['id']
-    if(id == 'c1' and importance == True):
-        importanceArray[0] = True
-    elif(id == 'c1' and importance == False):
-        importanceArray[0] = False
-    elif(id == 'c2' and importance == True):
-        importanceArray[1] = True
-    elif(id == 'c2' and importance == False):
-        importanceArray[1] = False
-    elif(id == 'c3' and importance == True):
-        importanceArray[2] = True
-    elif(id == 'c3' and importance == False):
-        importanceArray[2] = False
-    elif(id == 'c4' and importance == True):
-        importanceArray[3] = True
-    elif(id == 'c4' and importance == False):
-        importanceArray[3] = False\
-    '''
 
 
 @app.route('/landingPage')
@@ -119,14 +137,6 @@ def generate_prompt(keywords, description, importanceArray):
     for i in true_indices:
         enfasis = enfasis + f" {keywords[i]},"
 
-    '''
-    enfasis = ""
-    for i in importanceArray:
-        if i == True:
-            enfasis = enfasis + f" {keywords[i.index]},"
-        elif i == False:
-            print(f"{i} is False")
-    '''
 
     prompt = f"""Necesito un anuncio para una empresa que tiene que ver con los siguientes conceptos: {keyword_list}. 
     De esos mismos conceptos, quiero que hagas enfasis en: {enfasis}.
