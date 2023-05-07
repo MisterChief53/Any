@@ -15,6 +15,10 @@ For this demo, the display of image generation has been disabled, since we
 rely on writing to disk to save the images, and vercel only provides us with 
 a write-only environment.
 
+This live demo will probably not work correctly for very long, since
+the accounts linked to the api keys are rate limited. However, it 
+serves more as a proof of concept to show how easy this is to deploy.
+
 ## Installation
 Installing the app is very simple. All is needed is to pip install the dependencies listed
 on requirements.txt, and set up the following enviromnet variables:
