@@ -1,0 +1,128 @@
+#titulo {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url("../img/index/Frame\ 12.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    object-fit: cover;
+}
+
+#anyTitulo {
+    margin-top: 150px;
+    margin-bottom: 0px;
+}
+
+.gradientLyrics {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 100px;
+    margin: 0 35vw;
+    background-image: linear-gradient(70deg, #2D81BE, #35e7c4);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.paso {
+    margin: 0 10%;
+    margin-bottom: 20px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #5A5A5A;
+    text-align: center;
+}
+
+#imgsRapidas {
+    width: 85%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /* flex-wrap: wrap; */
+}
+
+
+/* #textImgsRapidas {} */
+
+#imgsRapidas img {
+    height: 50vh;
+    margin: 0 0 0 50px;
+}
+
+#imgsRapidas p {
+    color: #5A5A5A;
+    text-align: end;
+}
+
+#imgsRapidas h2 {
+    text-align: end;
+    color: #5A5A5A;
+    font-weight: 700;
+}
+
+#cualquier {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#cualquier img {
+    height: 60vh;
+}
+
+#cualquier h2 {
+    margin-top: 20px;
+    font-weight: 600;
+    color: #5A5A5A;
+}
+
+#cualquier span {
+    color: #35e7c4;
+}
+
+#masDiseño {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #5A5A5A;
+}
+
+.gradientLyrics2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 50px;
+    font-weight: 800;
+    background-image: linear-gradient(70deg, #2D81BE, #35e7c4);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#txtMasDiseño {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#masDiseño p {
+    font-size: 45px;
+    color: #5A5A5A;
+    font-weight: 700;
+}

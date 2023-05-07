@@ -93,11 +93,6 @@ def index():
                 with open("./static/img/img_resultado/response_num0.png", "wb") as f:
                     f.write(base64.b64decode(image["base64"]))
 
-            
-
-
-
-
         return redirect(url_for("index", result=result, imagePath=imagePath, _anchor="instaPost"))
         
     

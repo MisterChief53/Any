@@ -114,6 +114,20 @@
       align-items: center;
   }
   
+  footer {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #141414;
+      border: none;
+      height: 65px;
+  }
+  
+  footer img {
+      height: 20px;
+  }
+  
   @media screen and (max-width: 1024px) {
       main {
           margin: 0 10% 20px 10%;

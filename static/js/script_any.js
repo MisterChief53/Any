@@ -98,7 +98,22 @@ class circulo {
 }
 
 function Inicio() {
+    cuentaCaracteres();
     step3();
+}
+
+function cuentaCaracteres() {
+    const input = document.getElementById('descripcion');
+    input.addEventListener('input', function() {
+        const texto = input.value;
+        const caracteres = texto.length;
+        document.getElementById("charCount").innerHTML = `${caracteres}`;
+
+        const maxLength = parseInt(input.getAttribute('maxlength'));
+        if (texto.length > 49) {
+            input.value = texto.slice(0, 49); // Limita la longitud del texto
+        }
+    });
 }
 
 function addColor() {
