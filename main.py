@@ -81,16 +81,14 @@ def index():
 
         img_data = response.json()
         if 'VERCEL' in os.environ:
-            imagePath = "/tmp/response_num0.png"
+            imagePath = ""
         else:
             imagePath = "img/img_resultado/response_num0.png"
 
         
         for i, image in enumerate(img_data["artifacts"]):
             if 'VERCEL' in os.environ:
-                with open("/tmp/response_num0.png", "wb") as f:
-                    f.write(base64.b64decode(image["base64"]))
-                send_file('/tmp/response_num0.png', as_attachment=True)
+                print("Vercel detected, no img")
             else:
                 with open("./static/img/img_resultado/response_num0.png", "wb") as f:
                     f.write(base64.b64decode(image["base64"]))
