@@ -126,7 +126,10 @@
 
                     <div id="instaPost">
                         <img class="instaIcon" src="{{ url_for('static', filename='img/profile.svg')}}" alt="">
-                        <img src="{{ url_for('static', filename='img/img_resultado/response_num0.png')}}" alt="" id="imageAnswer">
+                        {% if imagePath %}
+                        <!--<img src="{{ url_for('static', filename='img/img_resultado/response_num0.png')}}" alt="" id="imageAnswer">-->
+                        <img src="{{ url_for('static', filename=imagePath)}}" alt="" id="imageAnswer">
+                        {% endif %}
                         <div id="iconsInsta">
                             <img class="instaIcon" src="{{ url_for('static', filename='img/cards-heart.svg')}}" alt="">
                             <img class="instaIcon" src="{{ url_for('static', filename='img/comment.svg')}}" alt="">
@@ -140,8 +143,9 @@
                         {% endif %}
                         
                     </div>
-
-                    <a href="{{ url_for('static', filename='img/img_resultado/response_num0.png')}}" download="nombre-de-la-imagen.jpg" class="boton">Descargar imagen</a>
+                    {% if imagePath %}
+                    <a href="{{ url_for('static', filename=imagePath)}}" download="nombre-de-la-imagen.jpg" class="boton">Descargar imagen</a>
+                    {% endif %}
 
                 </section>
 

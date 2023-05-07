@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, url_for, request, redirect, send_file
 import openai
 import os
 from dotenv import load_dotenv
@@ -6,6 +6,7 @@ import base64
 import requests
 load_dotenv()
 importanceArray = [False, False, False, False]
+#imagePath = "./static/img/img_resultado/response_num0.png"
 
 app = Flask(__name__)
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -79,18 +80,32 @@ def index():
             raise Exception("Non-200 response: " + str(response.text))
 
         img_data = response.json()
+        if 'VERCEL' in os.environ:
+            imagePath = "/tmp/response_num0.png"
+            send_file('/tmp/response_num0.png', as_attachment=True)
+        else:
+            imagePath = "img/img_resultado/response_num0.png"
 
+        
         for i, image in enumerate(img_data["artifacts"]):
-            with open(f"./static/img/img_resultado/response_num{i}.png", "wb") as f:
-                f.write(base64.b64decode(image["base64"]))
+            if 'VERCEL' in os.environ:
+                with open("/tmp/response_num0.png", "wb") as f:
+                    f.write(base64.b64decode(image["base64"]))
+            else:
+                with open("./static/img/img_resultado/response_num0.png", "wb") as f:
+                    f.write(base64.b64decode(image["base64"]))
+
+            
 
 
 
-        return redirect(url_for("index", result=result, _anchor="instaPost"))
+
+        return redirect(url_for("index", result=result, imagePath=imagePath, _anchor="instaPost"))
         
     
     result = request.args.get("result")
-    return render_template('Any.html', result=result)
+    imagePath = request.args.get("imagePath")
+    return render_template('Any.html', result=result, imagePath=imagePath)
 
 @app.route('/importance_endpoint', methods=['POST'])
 def importance_endpoint():
