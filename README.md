@@ -15,6 +15,18 @@ For this demo, the display of image generation has been disabled, since we
 rely on writing to disk to save the images, and vercel only provides us with 
 a write-only environment.
 
+## Installation
+Installing the app is very simple. All is needed is to pip install the dependencies listed
+on requirements.txt, and set up the following enviromnet variables:
+```
+FLASK_APP=app
+FLASK_ENV=development
+
+# Once you add your API key below, make sure to not share it with anyone! The API key should remain private.
+OPENAI_API_KEY=YOUR_API_KEY
+STABILITY_API_KEY=YOUR_API_KEY
+```
+
 
 ## Built with 
 
