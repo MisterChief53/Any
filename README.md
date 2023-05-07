@@ -16,6 +16,8 @@ Here is a working live demo :  https://any-lime.vercel.app/
 
 - [OpenIA](https://developers.google.com/chart/interactive/docs/quick_start) - Compañia de inteligencia artificial
 - [Bootstrap](http://getbootstrap.com/) - Amplia lista de componentes y complementos de Javascript incluidos.
+- [Flask](https://flask.palletsprojects.com/en/2.3.x/)
+- [DreamStudio](https://dreamstudio.com/api/)
 
 
 ## Team
