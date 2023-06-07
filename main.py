@@ -7,6 +7,19 @@ import requests
 load_dotenv()
 importanceArray = [False, False, False, False]
 #imagePath = "./static/img/img_resultado/response_num0.png"
+import uuid
+from google.cloud import storage
+
+imagePath = ""
+
+credentialsFile = os.environ['GOOGLE_APPLICATION_CREDENTIALS_JSON']
+relative_credentials_path = './credentials/' + credentialsFile
+absolute_credentials_path = os.path.abspath(relative_credentials_path)
+bucket_name = os.environ.get('STORAGE_BUCKET_NAME')
+client = storage.Client.from_service_account_json(absolute_credentials_path)
+bucket = client.get_bucket(bucket_name)
+
+
 
 app = Flask(__name__)
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -14,6 +27,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 @app.route('/', methods=['GET', 'POST'])
 
 def index():
+    global imagePath
     if request.method == 'POST' and request.form.get('form_name') == 'keywordsForm':
         keywords = []
         keywords.append(request.form["keyword1"])
@@ -80,17 +94,18 @@ def index():
             raise Exception("Non-200 response: " + str(response.text))
 
         img_data = response.json()
+        filename = str(uuid.uuid4()) + ".png"
         if 'VERCEL' in os.environ:
             imagePath = ""
         else:
-            imagePath = "img/img_resultado/response_num0.png"
+            imagePath = "img/img_resultado/" + filename
 
         
         for i, image in enumerate(img_data["artifacts"]):
             if 'VERCEL' in os.environ:
                 print("Vercel detected, no img")
             else:
-                with open("./static/img/img_resultado/response_num0.png", "wb") as f:
+                with open("static/" + imagePath, "w+b") as f:
                     f.write(base64.b64decode(image["base64"]))
 
         return redirect(url_for("index", result=result, imagePath=imagePath, _anchor="instaPost"))
