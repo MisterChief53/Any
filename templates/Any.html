@@ -128,7 +128,7 @@
                         <img class="instaIcon" src="{{ url_for('static', filename='img/profile.svg')}}" alt="">
                         {% if imagePath %}
                         <!--<img src="{{ url_for('static', filename='img/img_resultado/response_num0.png')}}" alt="" id="imageAnswer">-->
-                        <img src="{{ url_for('static', filename=imagePath)}}" alt="" id="imageAnswer">
+                        <img src="{{ imagePath }}" alt="" id="imageAnswer">
                         {% endif %}
                         <div id="iconsInsta">
                             <img class="instaIcon" src="{{ url_for('static', filename='img/cards-heart.svg')}}" alt="">
@@ -144,7 +144,10 @@
                         
                     </div>
                     {% if imagePath %}
-                    <a href="{{ url_for('static', filename=imagePath)}}" download="nombre-de-la-imagen.jpg" class="boton">Descargar imagen</a>
+                    <!-- <a href="{{ url_for('static', filename=imagePath)}}" download="nombre-de-la-imagen.jpg" class="boton">Descargar imagen</a> -->
+                    <!-- <a href="{{ imagePath }}" download="nombre-de-la-imagen.jpg" class="boton" download>Descargar imagen</a> -->
+                    <a href="{{ imagePath }}" class="boton" download>Descargar imagen</a>
+                    <!-- <a href="{{ imagePath }}" onclick="downloadImage()" class="boton" download>Descargar imagen</a> -->
                     {% endif %}
 
                 </section>
@@ -154,11 +157,89 @@
         </main>
 
     </form>
+
+    <!-- <button id="delete-button">DeleteImg</button> -->
+
+
+    {% if fileName %}
+    <!-- <h1>Filename: {{ fileName }}</h1> -->
+    <script>
+        /*
+        window.addEventListener('DOMContentLoaded', function() {
+            // Add event listener to the delete button
+            var deleteButton = document.getElementById('delete-button');
+            deleteButton.addEventListener('click', function() {
+                var filename = "{{ fileName }}";  // Replace with the actual filename
+                console.log(filename);
+
+                fetch('/delete_image', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: 'filename=' + filename
+                })
+                .then(function(response) {
+                    // Handle the response
+                    if (response.ok) {
+                        console.log('Image deleted successfully');
+                    } else {
+                        console.error('Failed to delete image');
+                    }
+                })
+                .catch(function(error) {
+                    console.error('An error occurred:', error);
+                });
+            });
+        });
+        */
+
+        /*
+        function downloadImage() {
+            var link = document.createElement('a');
+            link.href = '{{ imagePath }}';
+            link.download = 'download.png';
+            link.click();
+        }
+        */
+        
+        window.addEventListener('beforeunload', function() {
+            var filename = "{{ fileName }}";  // Replace with the actual filename
+            console.log(filename);
+        
+            fetch('/delete_image', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'filename=' + filename
+            })
+            .then(function(response) {
+                // Handle the response
+                if (response.ok) {
+                    console.log('Image deleted successfully');
+                } else {
+                    console.error('Failed to delete image');
+                }
+            })
+            .catch(function(error) {
+                console.error('An error occurred:', error);
+            });
+        });
+        
+    </script>
+    {% endif %}
+
         <!-- *BOOTSTRAP JS INTERNO -->
         <script src="{{ url_for('static', filename='js/bootstrap.min.js')}} "></script>
         <script src="{{ url_for('static', filename='js/script_any.js')}} "></script>
         <!-- <script src="../js/script.js "></script> -->
+
+    
+    
 </body>
+
+
 
 </html>
 

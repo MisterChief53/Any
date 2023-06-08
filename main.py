@@ -11,14 +11,23 @@ import uuid
 from google.cloud import storage
 
 imagePath = ""
+filename = ""
 
 credentialsFile = os.environ['GOOGLE_APPLICATION_CREDENTIALS_JSON']
 relative_credentials_path = './credentials/' + credentialsFile
 absolute_credentials_path = os.path.abspath(relative_credentials_path)
 bucket_name = os.environ.get('STORAGE_BUCKET_NAME')
 client = storage.Client.from_service_account_json(absolute_credentials_path)
-bucket = client.get_bucket(bucket_name)
 
+# Iterate over the buckets and print their names
+for bucket in client.list_buckets():
+    print("Available buckets: " + bucket.name)
+
+#bucket = client.get_bucket(bucket_name)
+#this ugly hack gets the first bucket in the list of buckets, probably not the best way to do it
+#I tried giving it a string in the .env file but it didn't work
+buckets = list(client.list_buckets())
+bucket = client.get_bucket(buckets[0].name)
 
 
 app = Flask(__name__)
@@ -28,6 +37,10 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def index():
     global imagePath
+    global bucket
+    global bucket_name
+    global filename
+    #filename = 'a'
     if request.method == 'POST' and request.form.get('form_name') == 'keywordsForm':
         keywords = []
         keywords.append(request.form["keyword1"])
@@ -95,6 +108,7 @@ def index():
 
         img_data = response.json()
         filename = str(uuid.uuid4()) + ".png"
+        '''
         if 'VERCEL' in os.environ:
             imagePath = ""
         else:
@@ -107,13 +121,27 @@ def index():
             else:
                 with open("static/" + imagePath, "w+b") as f:
                     f.write(base64.b64decode(image["base64"]))
+        '''
 
-        return redirect(url_for("index", result=result, imagePath=imagePath, _anchor="instaPost"))
+        destination_blob_name = "img/img_resultado/" + filename
+
+        #upload the image to the bucket
+        blob = bucket.blob(destination_blob_name)
+        blob.metadata = {'Content-Disposition' : f'attachment; filename="{filename}"'} 
+        #blob.metadata['Content-Disposition'] = f'attachment; filename="{filename}"'
+        blob.upload_from_string(base64.b64decode(img_data["artifacts"][0]["base64"]), content_type="image/png")
+        blob.make_public()
+        #set image path to the url of the image in the bucket
+        imagePath = blob.public_url
         
-    
+        print(f"filename to send to frontend: {filename}")
+
+        return redirect(url_for("index", result=result, fileName=destination_blob_name, imagePath=imagePath, _anchor="instaPost"))
+        
+    destination_blob_name = request.args.get("fileName")
     result = request.args.get("result")
     imagePath = request.args.get("imagePath")
-    return render_template('Any.html', result=result, imagePath=imagePath)
+    return render_template('Any.html', result=result, imagePath=imagePath, fileName=destination_blob_name)
 
 @app.route('/importance_endpoint', methods=['POST'])
 def importance_endpoint():
@@ -147,6 +175,22 @@ def importance_endpoint():
 @app.route('/landingPage')
 def landingPage():
     return render_template('landingPage.html')
+
+@app.route('/delete_image', methods=['POST'])
+def delete_image():
+    global bucket
+    # Retrieve the filename from the request
+    filename = request.form.get('filename')
+
+    # Perform the deletion logic here
+    # Delete the file from your Google Cloud Storage bucket using the provided filename
+    print(filename)
+    print("Filename ^")
+    blob = bucket.blob(filename)
+    blob.delete()
+    print("image deleteddddd")
+
+    return 'Image deleted successfully'
 
 def generate_prompt(keywords, description, importanceArray):
     keyword_list = ""
