@@ -9,15 +9,47 @@ importanceArray = [False, False, False, False]
 #imagePath = "./static/img/img_resultado/response_num0.png"
 import uuid
 from google.cloud import storage
+from google.oauth2 import service_account
 
 imagePath = ""
 filename = ""
 
+'''
 credentialsFile = os.environ['GOOGLE_APPLICATION_CREDENTIALS_JSON']
 relative_credentials_path = './credentials/' + credentialsFile
 absolute_credentials_path = os.path.abspath(relative_credentials_path)
+'''
+
+google_type = os.environ.get('TYPE')
+google_project_id = os.environ.get('PROJECT_ID')
+google_private_key_id = os.environ.get('PRIVATE_KEY_ID')
+google_private_key = os.environ.get('PRIVATE_KEY')
+google_client_email = os.environ.get('CLIENT_EMAIL')
+google_client_id = os.environ.get('CLIENT_ID')
+google_auth_uri = os.environ.get('AUTH_URI')
+google_token_uri = os.environ.get('TOKEN_URI')
+google_auth_provider_x509_cert_url = os.environ.get('AUTH_PROVIDER_X509_CERT_URL')
+google_client_x509_cert_url = os.environ.get('CLIENT_X509_CERT_URL')
+google_universe_domain = os.environ.get('UNIVERSE_DOMAIN')
+
+credentialsJson = {
+    "type": google_type,
+    "project_id": google_project_id,
+    "private_key_id": google_private_key_id,
+    "private_key": google_private_key,
+    "client_email": google_client_email,
+    "client_id": google_client_id,
+    "auth_uri": google_auth_uri,
+    "token_uri": google_token_uri,
+    "auth_provider_x509_cert_url": google_auth_provider_x509_cert_url,
+    "client_x509_cert_url": google_client_x509_cert_url,
+    "universe_domain": google_universe_domain
+}
+
+creds = service_account.Credentials.from_service_account_info(credentialsJson)
+
 bucket_name = os.environ.get('STORAGE_BUCKET_NAME')
-client = storage.Client.from_service_account_json(absolute_credentials_path)
+client = storage.Client(credentials=creds, project=google_project_id)
 
 # Iterate over the buckets and print their names
 for bucket in client.list_buckets():
@@ -40,7 +72,6 @@ def index():
     global bucket
     global bucket_name
     global filename
-    #filename = 'a'
     if request.method == 'POST' and request.form.get('form_name') == 'keywordsForm':
         keywords = []
         keywords.append(request.form["keyword1"])

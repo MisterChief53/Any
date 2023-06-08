@@ -29,6 +29,19 @@ FLASK_ENV=development
 # Once you add your API key below, make sure to not share it with anyone! The API key should remain private.
 OPENAI_API_KEY=YOUR_API_KEY
 STABILITY_API_KEY=YOUR_API_KEY
+
+#google cloud credentials. These will be used to authenticate with the Google Cloud Storage API.
+#you can get these from your .json from your service account
+TYPE=""
+PROJECT_ID=""
+PRIVATE_KEY_ID=""
+PRIVATE_KEY=""
+CLIENT_ID=""
+AUTH_URI=""
+TOKEN_URI=""
+AUTH_PROVIDER_X509_CERT_URL=""
+CLIENT_X509_CERT_URL=""
+UNIVERSE_DOMAIN=""
 ```
 
 
