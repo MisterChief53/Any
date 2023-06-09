@@ -10,6 +10,19 @@ importanceArray = [False, False, False, False]
 import uuid
 from google.cloud import storage
 from google.oauth2 import service_account
+import logging
+import sys
+
+# Create a custom handler that directs the log output to stderr
+handler = logging.StreamHandler(stream=sys.stderr)
+
+# Create a formatter for the log messages (optional)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+
+# Add the handler to the root logger
+logging.getLogger().addHandler(handler)
+
 
 imagePath = ""
 filename = ""
@@ -19,6 +32,8 @@ credentialsFile = os.environ['GOOGLE_APPLICATION_CREDENTIALS_JSON']
 relative_credentials_path = './credentials/' + credentialsFile
 absolute_credentials_path = os.path.abspath(relative_credentials_path)
 '''
+
+logging.warning('Assigning credentials')
 
 google_type = os.environ.get('TYPE')
 google_project_id = os.environ.get('PROJECT_ID')
@@ -45,6 +60,8 @@ credentialsJson = {
     "client_x509_cert_url": google_client_x509_cert_url,
     "universe_domain": google_universe_domain
 }
+
+logging.warning('Initiating bucket connection')
 
 creds = service_account.Credentials.from_service_account_info(credentialsJson)
 
