@@ -65,14 +65,12 @@ logging.warning('Initiating bucket connection')
 
 creds = service_account.Credentials.from_service_account_info(credentialsJson)
 
-bucket_name = os.environ.get('STORAGE_BUCKET_NAME')
 client = storage.Client(credentials=creds, project=google_project_id)
 
 # Iterate over the buckets and print their names
 for bucket in client.list_buckets():
     print("Available buckets: " + bucket.name)
 
-#bucket = client.get_bucket(bucket_name)
 #this ugly hack gets the first bucket in the list of buckets, probably not the best way to do it
 #I tried giving it a string in the .env file but it didn't work
 buckets = list(client.list_buckets())
@@ -87,7 +85,6 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 def index():
     global imagePath
     global bucket
-    global bucket_name
     global filename
     if request.method == 'POST' and request.form.get('form_name') == 'keywordsForm':
         keywords = []
