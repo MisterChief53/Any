@@ -44,6 +44,10 @@ CLIENT_X509_CERT_URL=""
 UNIVERSE_DOMAIN=""
 ```
 
+If you are using python virtual environments, it is adviced to name the venv as:
+```
+any-venv
+```
 
 ## Built with 
 
