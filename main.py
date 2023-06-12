@@ -113,8 +113,8 @@ def index():
 
         description = request.form["Description"]
 
-        source_page = request.form.get("source_page")
-
+        source_page = request.form["source_page"]
+        print(f"Valor de source_page: {source_page}")
         if source_page == "Any.html":
             system_message = "Eres un copywriter y escribes publicidad. Tus respuestas están pensadas para usarse en posts de Instagram y son de tamaño mediano"
             generate_prompt_func = generate_prompt
@@ -122,6 +122,7 @@ def index():
             system_message = "You are a copywriter and you write advertising. Your responses are intended for use in Instagram posts and are of medium size"
             generate_prompt_func = generate_prompt_eng
         else:
+            
             return "Página de origen no válida"
 
         response = openai.ChatCompletion.create(
