@@ -113,11 +113,22 @@ def index():
 
         description = request.form["Description"]
 
+        source_page = request.form.get("source_page")
+
+        if source_page == "Any.html":
+            system_message = "Eres un copywriter y escribes publicidad. Tus respuestas están pensadas para usarse en posts de Instagram y son de tamaño mediano"
+            generate_prompt_func = generate_prompt
+        elif source_page == "Any_eng.html":
+            system_message = "You are a copywriter and you write advertising. Your responses are intended for use in Instagram posts and are of medium size"
+            generate_prompt_func = generate_prompt_eng
+        else:
+            return "Página de origen no válida"
+
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[
-                {"role": "system", "content": "Eres un copywriter y escribes publicidad. Tus respuestas estan pensadas para usarse en posts de instagram, y son de mediano tamaño"},
-                {"role": "user", "content": generate_prompt(keywords, description, importanceArray)}
+               {"role": "system", "content": system_message},
+                {"role": "user", "content": generate_prompt_func(keywords, description, importanceArray)}
                 ],
             temperature = 0.6,
             #max_tokens = 3000
@@ -272,6 +283,32 @@ def generate_prompt(keywords, description, importanceArray):
     Solamente quiero que pongas los hastags despues del parrafo del anuncio, sin ninguna otra oracion.
     Quiero que mi publicidad siga las tecnicas de venta AIDA, para generar el mayor numero de ventas posibles.
     No quiero frases indicando cada seccion de tu respuesta, esto significa, que tu respuesta no va a contener cosas como \"Hashtags sugeridos:\" o \"Anuncio:\"."""
+
+    print(f"Prompt: {prompt}")
+
+    return prompt
+
+def generate_prompt_eng(keywords, description, importanceArray):
+    keyword_list = ""
+    for keyword in keywords:
+        print(keyword)
+        keyword_list = keyword_list + f" {keyword},"
+    print(f"Keyword list: {keyword_list}")
+
+    true_indices = [i for i in range(len(importanceArray)) if importanceArray[i]]
+    enfasis = ""
+    for i in true_indices:
+        enfasis = enfasis + f" {keywords[i]},"
+
+    prompt = f"""I need an advertisement for a company related to the following concepts: {keyword_list}.
+    Out of these concepts, I want you to emphasize: {enfasis}.
+    Brief description of my company: {description}.
+    The advertisement should ideally be suitable for display on both social media and a billboard.
+    After you send me the paragraph, I need you to generate some hashtags that are relevant to the content of the advertisement.
+    These hashtags should be in a single line, separated by spaces.
+    I only want you to place the hashtags after the advertisement paragraph, without any other sentences.
+    I want my advertisement to follow the AIDA sales techniques to generate the highest possible number of sales.
+    I don't want phrases indicating each section of your response. This means that your response should not contain things like "Suggested hashtags:" or "Advertisement:"."""
 
     print(f"Prompt: {prompt}")
 
