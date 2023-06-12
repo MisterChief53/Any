@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>ANY | landing</title>
+    <!-- *BOOTSTRAP CSS INTERNO -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_index.css')}}">
+    <link rel="any icon" href="{{ url_for('static', filename='img/ANY..svg')}}">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light ">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="."><img class="logo" src="." alt=""></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav  menu_header">
+                        <a class="list_item_header" aria-current="page" href="{{ url_for('landingPage') }}"> <img src="{{ url_for('static', filename='img/ANY..svg')}}" alt=""></a>
+                        <!-- <div class="header_space"></div> -->
+                        <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('index') }}">Try ANY</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="titulo">
+            <div id="anyTitulo">
+                <h1 class="gradientLyrics">ANY.</h1>
+            </div>
+            <p class="paso">Design the post you want, no matter who you are.</p>
+            <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('index') }}">Try ANY</a>
+        </section>
+
+        <section id="solo4pasos">
+            <div>
+                <h2>ANY is the perfect tool to create posts in just <span>4 steps</span></h2>
+            </div>
+        </section>
+
+        <section id="imgsRapidas">
+            <div id="textImgsRapidas">
+                <h2>Design as fast as you imagine</strong>
+                </h2>
+                <p>In 4 simple steps, Artificial Intelligence will generate the ideal advertisement that your hands have not created but your mind has imagined.</p>
+            </div>
+
+            <div>
+                <img src="{{ url_for('static', filename='img/index/insta.svg')}}" alt="">
+            </div>
+        </section>
+
+        <section id="cualquier">
+            <img src="{{ url_for('static', filename='img/index/mundo.svg')}}" alt="">
+            <h2>With <span> ANY</span> anyone from anywhere can design any post.</h2>
+        </section>
+
+        <section id="masDiseño">
+            <div id="txtMasDiseño">
+                <h1 class="gradientLyrics2">ANY is more than design</h1>
+                <p>Anuncio + Description + Hashtags</p>
+                <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('index') }}">Try ANY</a>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <a class="list_item_header" aria-current="page" href="."> <img src="{{ url_for('static', filename='img/ANY..svg')}}" alt=""></a>
+    </footer>
+
+
+    <!-- *BOOTSTRAP JS INTERNO -->
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
+</body>
+
+</html>
