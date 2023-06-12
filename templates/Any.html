@@ -40,7 +40,7 @@
                     <div id="text-container">
                         <div id="mainTextBox">
                             <input type="hidden" name="form_name" value="keywordsForm">
-                            <input type="text" class="txt" id="descripcion" placeholder="Describe tu producto/servicio" name="Description"/>
+                            <input type="text" class="txt" id="descripcion" placeholder="Describe tu producto/servicio" name="Description" />
                             <!-- <a href="#paso2" id="botonTextBox"><img src="../img/arrow-forward-rounded.svg" alt=""></a> -->
                         </div>
                         <p class="numChar"><span id="charCount"></span> / 50 caracteres</p>
@@ -71,14 +71,14 @@
 
                     <div id="palabras">
                         <div class="textContainerP3">
-                            <input type="text" id="text-input1" class="txt txtP3" placeholder="Palabra clave 1" name="keyword1"/>
+                            <input type="text" id="text-input1" class="txt txtP3" placeholder="Palabra clave 1" name="keyword1" />
                             <!-- <p class="numChar"><span></span> / 50 caracteres</p> -->
 
-                            <input type="text" id="text-input2" class="txt txtP3" placeholder="Palabra clave 2" name="keyword2"/>
+                            <input type="text" id="text-input2" class="txt txtP3" placeholder="Palabra clave 2" name="keyword2" />
                         </div>
                         <div class="textContainerP3">
-                            <input type="text" id="text-input3" class="txt txtP3" placeholder="Palabra clave 3" name="keyword3"/>
-                            <input type="text" id="text-input4" class="txt txtP3" placeholder="Palabra clave 4" name="keyword4"/>
+                            <input type="text" id="text-input3" class="txt txtP3" placeholder="Palabra clave 3" name="keyword3" />
+                            <input type="text" id="text-input4" class="txt txtP3" placeholder="Palabra clave 4" name="keyword4" />
                         </div>
                     </div>
 
@@ -125,11 +125,9 @@
                     <p class="paso"><span>Tu anuncio está listo</span> <br> Así se vería tu post en instagram</p>
 
                     <div id="instaPost">
-                        <img class="instaIcon" src="{{ url_for('static', filename='img/profile.svg')}}" alt="">
-                        {% if imagePath %}
+                        <img class="instaIcon" src="{{ url_for('static', filename='img/profile.svg')}}" alt=""> {% if imagePath %}
                         <!--<img src="{{ url_for('static', filename='img/img_resultado/response_num0.png')}}" alt="" id="imageAnswer">-->
-                        <img src="{{ imagePath }}" alt="" id="imageAnswer">
-                        {% endif %}
+                        <img src="{{ imagePath }}" alt="" id="imageAnswer"> {% endif %}
                         <div id="iconsInsta">
                             <img class="instaIcon" src="{{ url_for('static', filename='img/cards-heart.svg')}}" alt="">
                             <img class="instaIcon" src="{{ url_for('static', filename='img/comment.svg')}}" alt="">
@@ -141,7 +139,7 @@
                             {{ result }}
                         </p>
                         {% endif %}
-                        
+
                     </div>
                     {% if imagePath %}
                     <!-- <a href="{{ url_for('static', filename=imagePath)}}" download="nombre-de-la-imagen.jpg" class="boton">Descargar imagen</a> -->
@@ -165,14 +163,49 @@
     <!-- <h1>Filename: {{ fileName }}</h1> -->
     <script>
         /*
-        window.addEventListener('DOMContentLoaded', function() {
-            // Add event listener to the delete button
-            var deleteButton = document.getElementById('delete-button');
-            deleteButton.addEventListener('click', function() {
-                var filename = "{{ fileName }}";  // Replace with the actual filename
-                console.log(filename);
+                window.addEventListener('DOMContentLoaded', function() {
+                    // Add event listener to the delete button
+                    var deleteButton = document.getElementById('delete-button');
+                    deleteButton.addEventListener('click', function() {
+                        var filename = "{{ fileName }}";  // Replace with the actual filename
+                        console.log(filename);
 
-                fetch('/delete_image', {
+                        fetch('/delete_image', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: 'filename=' + filename
+                        })
+                        .then(function(response) {
+                            // Handle the response
+                            if (response.ok) {
+                                console.log('Image deleted successfully');
+                            } else {
+                                console.error('Failed to delete image');
+                            }
+                        })
+                        .catch(function(error) {
+                            console.error('An error occurred:', error);
+                        });
+                    });
+                });
+                */
+
+        /*
+        function downloadImage() {
+            var link = document.createElement('a');
+            link.href = '{{ imagePath }}';
+            link.download = 'download.png';
+            link.click();
+        }
+        */
+
+        window.addEventListener('beforeunload', function() {
+            var filename = "{{ fileName }}"; // Replace with the actual filename
+            console.log(filename);
+
+            fetch('/delete_image', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
@@ -190,53 +223,17 @@
                 .catch(function(error) {
                     console.error('An error occurred:', error);
                 });
-            });
         });
-        */
-
-        /*
-        function downloadImage() {
-            var link = document.createElement('a');
-            link.href = '{{ imagePath }}';
-            link.download = 'download.png';
-            link.click();
-        }
-        */
-        
-        window.addEventListener('beforeunload', function() {
-            var filename = "{{ fileName }}";  // Replace with the actual filename
-            console.log(filename);
-        
-            fetch('/delete_image', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: 'filename=' + filename
-            })
-            .then(function(response) {
-                // Handle the response
-                if (response.ok) {
-                    console.log('Image deleted successfully');
-                } else {
-                    console.error('Failed to delete image');
-                }
-            })
-            .catch(function(error) {
-                console.error('An error occurred:', error);
-            });
-        });
-        
     </script>
     {% endif %}
 
-        <!-- *BOOTSTRAP JS INTERNO -->
-        <script src="{{ url_for('static', filename='js/bootstrap.min.js')}} "></script>
-        <script src="{{ url_for('static', filename='js/script_any.js')}} "></script>
-        <!-- <script src="../js/script.js "></script> -->
+    <!-- *BOOTSTRAP JS INTERNO -->
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js')}} "></script>
+    <script src="{{ url_for('static', filename='js/script_any.js')}} "></script>
+    <!-- <script src="../js/script.js "></script> -->
 
-    
-    
+
+
 </body>
 
 
