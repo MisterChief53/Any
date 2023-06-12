@@ -38,7 +38,18 @@ logging.warning('Assigning credentials')
 google_type = os.environ.get('TYPE')
 google_project_id = os.environ.get('PROJECT_ID')
 google_private_key_id = os.environ.get('PRIVATE_KEY_ID')
-google_private_key = os.environ.get('PRIVATE_KEY')
+
+flag = os.environ.get('RANDOM_FLAG')
+if flag == "string":
+    google_private_key_encoded = os.environ.get('PRIVATE_KEY')
+    google_private_key = google_private_key_encoded.replace('\\n', '\n')
+else:
+    google_private_key = os.environ.get('PRIVATE_KEY')
+
+logging.warning(flag)
+logging.warning(google_private_key)
+
+
 google_client_email = os.environ.get('CLIENT_EMAIL')
 google_client_id = os.environ.get('CLIENT_ID')
 google_auth_uri = os.environ.get('AUTH_URI')
@@ -46,6 +57,7 @@ google_token_uri = os.environ.get('TOKEN_URI')
 google_auth_provider_x509_cert_url = os.environ.get('AUTH_PROVIDER_X509_CERT_URL')
 google_client_x509_cert_url = os.environ.get('CLIENT_X509_CERT_URL')
 google_universe_domain = os.environ.get('UNIVERSE_DOMAIN')
+
 
 credentialsJson = {
     "type": google_type,
@@ -62,6 +74,7 @@ credentialsJson = {
 }
 
 logging.warning('Initiating bucket connection')
+logging.warning(credentialsJson)
 
 creds = service_account.Credentials.from_service_account_info(credentialsJson)
 
