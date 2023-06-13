@@ -114,7 +114,7 @@ def index():
         description = request.form["Description"]
 
         source_page = request.form["source_page"]
-        print(f"Valor de source_page: {source_page}")
+        #print(f"Valor de source_page: {source_page}")
         if source_page == "Any.html":
             system_message = "Eres un copywriter y escribes publicidad. Tus respuestas están pensadas para usarse en posts de Instagram y son de tamaño mediano"
             generate_prompt_func = generate_prompt
@@ -211,7 +211,7 @@ def index():
     destination_blob_name = request.args.get("fileName")
     result = request.args.get("result")
     imagePath = request.args.get("imagePath")
-    return render_template('Any.html', result=result, imagePath=imagePath, fileName=destination_blob_name)
+    return render_template('Any_eng.html', result=result, imagePath=imagePath, fileName=destination_blob_name)
 
 @app.route('/importance_endpoint', methods=['POST'])
 def importance_endpoint():
@@ -245,6 +245,14 @@ def importance_endpoint():
 @app.route('/landingPage')
 def landingPage():
     return render_template('landingPage.html')
+
+@app.route('/Any_eng')
+def Any_eng():
+    return render_template('Any_eng.html')
+
+@app.route('/landingPage_eng')
+def landingPage_eng():
+    return render_template('landingPage_eng.html')
 
 @app.route('/delete_image', methods=['POST'])
 def delete_image():
