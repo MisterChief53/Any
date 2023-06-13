@@ -55,6 +55,22 @@
       backdrop-filter: blur(50px);
   }
   
+  .dpdown_header {
+      background-color: rgba(255, 255, 255, 0);
+      color: #5A5A5A;
+      border: none;
+      font-weight: 600;
+      border-radius: 50px;
+  }
+  
+  #headerBtns {
+      width: 30%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+  }
+  
   #subtitulo {
       font-size: 20px;
       color: #a3a3a3;

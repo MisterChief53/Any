@@ -21,8 +21,21 @@
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav  menu_header">
                         <a class="list_item_header" aria-current="page" href="{{ url_for('landingPage') }}"> <img src="{{ url_for('static', filename='img/ANY..svg')}}" alt=""></a>
-                        <!-- <div class="header_space"></div> -->
-                        <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('index') }}">Prueba ANY</a>
+
+                        <div id="headerBtns">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle dpdown_header" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                  Idioma
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ url_for('landingPage') }}">Inglés</a></li>
+                                    <li><a class="dropdown-item active" href="#">Español</a></li>
+                                </ul>
+                            </div>
+
+                            <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('index') }}">Prueba ANY</a>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -41,6 +54,24 @@
         <section id="solo4pasos">
             <div>
                 <h2>ANY es la herramienta perfecta para crear anuncios en solo <span>4 pasos</span></h2>
+            </div>
+            <div class="pasosLanding">
+                <div class="stepLand">
+                    <img src="{{ url_for('static', filename='img/emojione-monotone_letter-a.svg')}}" alt="">
+                    <h5>Descripción</h5>
+                </div>
+                <div class="stepLand">
+                    <img src="{{ url_for('static', filename='img/colors.svg')}}" alt="">
+                    <h5>Colores</h5>
+                </div>
+                <div class="stepLand">
+                    <img src="{{ url_for('static', filename='img/llave.svg')}}" alt="">
+                    <h5>Palabras Clave</h5>
+                </div>
+                <div class="stepLand">
+                    <img src="{{ url_for('static', filename='img/circulos.svg')}}" alt="">
+                    <h5>Relevancia</h5>
+                </div>
             </div>
         </section>
 
