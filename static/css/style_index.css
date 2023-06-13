@@ -128,15 +128,42 @@
 }
 
 #solo4pasos {
+    margin: 0 5%;
+    height: 100vh;
     color: #5A5A5A;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    font-weight: 800;
+    font-weight: 1400;
+}
+
+.pasosLanding {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+}
+
+.stepLand img {
+    height: 15vh;
+    margin: 25px 0;
 }
 
 #solo4pasos span {
+    font-weight: 1600;
     color: #2D81BE;
+}
+
+
+/** ------------------HEADER--------------- */
+
+@media screen and (max-width: 720px) {
+    .stepLand img {
+        height: 15px;
+        margin: 20px 0;
+    }
 }
