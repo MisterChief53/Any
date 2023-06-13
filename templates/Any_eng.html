@@ -21,16 +21,16 @@
               </button>
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div class="navbar-nav  menu_header">
-                            <a class="list_item_header" aria-current="page" href="{{ url_for('landingPage') }}"> <img src="{{ url_for('static', filename='img/ANY..svg')}}" alt=""></a>
+                            <a class="list_item_header" aria-current="page" href="{{ url_for('landingPage_eng') }}"> <img src="{{ url_for('static', filename='img/ANY..svg')}}" alt=""></a>
 
                             <div id="headerBtns">
                                 <div class="dropdown">
                                     <button class="btn btn-secondary dropdown-toggle dpdown_header" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                      Idioma
+                                      Languaje
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item active" href="{{ url_for('landingPage') }}">English</a></li>
-                                        <li><a class="dropdown-item" href="#">Spanish</a></li>
+                                        <li><a class="dropdown-item active" href="#">English</a></li>
+                                        <li><a class="dropdown-item" href="{{ url_for('Any') }}">Spanish</a></li>
                                     </ul>
                                 </div>
 
@@ -177,34 +177,34 @@
     <!-- <h1>Filename: {{ fileName }}</h1> -->
     <script>
         /*
-                                                window.addEventListener('DOMContentLoaded', function() {
-                                                    // Add event listener to the delete button
-                                                    var deleteButton = document.getElementById('delete-button');
-                                                    deleteButton.addEventListener('click', function() {
-                                                        var filename = "{{ fileName }}";  // Replace with the actual filename
-                                                        console.log(filename);
+                                                                                                        window.addEventListener('DOMContentLoaded', function() {
+                                                                                                            // Add event listener to the delete button
+                                                                                                            var deleteButton = document.getElementById('delete-button');
+                                                                                                            deleteButton.addEventListener('click', function() {
+                                                                                                                var filename = "{{ fileName }}";  // Replace with the actual filename
+                                                                                                                console.log(filename);
 
-                                                        fetch('/delete_image', {
-                                                            method: 'POST',
-                                                            headers: {
-                                                                'Content-Type': 'application/x-www-form-urlencoded'
-                                                            },
-                                                            body: 'filename=' + filename
-                                                        })
-                                                        .then(function(response) {
-                                                            // Handle the response
-                                                            if (response.ok) {
-                                                                console.log('Image deleted successfully');
-                                                            } else {
-                                                                console.error('Failed to delete image');
-                                                            }
-                                                        })
-                                                        .catch(function(error) {
-                                                            console.error('An error occurred:', error);
-                                                        });
-                                                    });
-                                                });
-                                                */
+                                                                                                                fetch('/delete_image', {
+                                                                                                                    method: 'POST',
+                                                                                                                    headers: {
+                                                                                                                        'Content-Type': 'application/x-www-form-urlencoded'
+                                                                                                                    },
+                                                                                                                    body: 'filename=' + filename
+                                                                                                                })
+                                                                                                                .then(function(response) {
+                                                                                                                    // Handle the response
+                                                                                                                    if (response.ok) {
+                                                                                                                        console.log('Image deleted successfully');
+                                                                                                                    } else {
+                                                                                                                        console.error('Failed to delete image');
+                                                                                                                    }
+                                                                                                                })
+                                                                                                                .catch(function(error) {
+                                                                                                                    console.error('An error occurred:', error);
+                                                                                                                });
+                                                                                                            });
+                                                                                                        });
+                                                                                                        */
 
         /*
         function downloadImage() {

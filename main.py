@@ -250,6 +250,10 @@ def landingPage():
 def Any_eng():
     return render_template('Any_eng.html')
 
+@app.route('/Any')
+def Any():
+    return render_template('Any.html')
+
 @app.route('/landingPage_eng')
 def landingPage_eng():
     return render_template('landingPage_eng.html')
