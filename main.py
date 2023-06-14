@@ -211,8 +211,10 @@ def index():
     destination_blob_name = request.args.get("fileName")
     result = request.args.get("result")
     imagePath = request.args.get("imagePath")
+
     return render_template('Any_eng.html', result=result, imagePath=imagePath, fileName=destination_blob_name)
 
+        
 @app.route('/importance_endpoint', methods=['POST'])
 def importance_endpoint():
 
