@@ -76,7 +76,7 @@
 
 .txt {
     width: 100%;
-    background-color: rgb(202, 202, 202);
+    /* background-color: rgb(202, 202, 202); */
     border: none;
     border-radius: 50px;
     font-size: 20px;
@@ -102,6 +102,13 @@
 
 .txt:hover {
     box-shadow: 0 0 10px rgba(113, 113, 113, 0.8);
+}
+
+.txt:focus {
+    box-shadow: 0 0 10px rgba(45, 129, 190, 0.8);
+    box-shadow: 0 0 15px linear-gradient(70deg, #2D81BE, #35e7c4);
+    outline: 2px solid #2D81BE;
+    background-color: #E7E7E7;
 }
 
 #descripcion:focus {
@@ -268,6 +275,41 @@
     color: #000;
     cursor: pointer;
 } */
+
+#paso5 .txt {
+    padding-left: 5%;
+}
+
+#paso5 .pstep5 {
+    font-size: 20px;
+    margin-bottom: 0px;
+}
+
+.selectOptions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.selectOption {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.selectOption select {
+    background-color: #E7E7E7;
+    box-shadow: 0 0 7px rgba(162, 162, 162, 0.8);
+    border: none;
+    border-radius: 50px;
+    font-size: 20px;
+    margin-left: 20px;
+    padding-left: 8px;
+}
 
 #resultado {
     display: flex;

@@ -136,6 +136,37 @@
                     </div>
                 </section>
 
+                <section id="paso5">
+                    <p class="paso"><span>Step 5.</span> Ad Description Specifications </p>
+
+                    <br>
+                    <input type="text" class="txt" placeholder="Name of the business">
+                    <br><br>
+
+                    <div class="selectOptions">
+                        <div class="selectOption">
+                            <p class="pstep5">Length: </p>
+                            <select name="length">
+                            <option value="corto" selected>Short</option>
+                            <option value="largo">Long</option>
+                        </select>
+                        </div>
+                        <div class="selectOption">
+                            <p class="pstep5">Tone: </p>
+                            <select name="tone">
+                                <option value="Profesional" selected>Professional</option>
+                                <option value="Gracioso">Funny</option>
+                            <option value="Ingenioso">Witty</option>
+                        </select>
+                        </div>
+                    </div>
+
+                    <input type="text" class="txt" placeholder="Add a promotion">
+                    <!-- <input type="checkbox" id="prom" name="prom">
+                    <label for="prom">No quiero una promoción</label> -->
+
+                </section>
+
                 <section id="resultado">
                     <p class="paso"><span>Your post is ready</span> <br> This is a preview of your Instagram post</p>
 
@@ -178,34 +209,34 @@
     <!-- <h1>Filename: {{ fileName }}</h1> -->
     <script>
         /*
-                                                                                                                                                        window.addEventListener('DOMContentLoaded', function() {
-                                                                                                                                                            // Add event listener to the delete button
-                                                                                                                                                            var deleteButton = document.getElementById('delete-button');
-                                                                                                                                                            deleteButton.addEventListener('click', function() {
-                                                                                                                                                                var filename = "{{ fileName }}";  // Replace with the actual filename
-                                                                                                                                                                console.log(filename);
+                                                                                                                                                                                window.addEventListener('DOMContentLoaded', function() {
+                                                                                                                                                                                    // Add event listener to the delete button
+                                                                                                                                                                                    var deleteButton = document.getElementById('delete-button');
+                                                                                                                                                                                    deleteButton.addEventListener('click', function() {
+                                                                                                                                                                                        var filename = "{{ fileName }}";  // Replace with the actual filename
+                                                                                                                                                                                        console.log(filename);
 
-                                                                                                                                                                fetch('/delete_image', {
-                                                                                                                                                                    method: 'POST',
-                                                                                                                                                                    headers: {
-                                                                                                                                                                        'Content-Type': 'application/x-www-form-urlencoded'
-                                                                                                                                                                    },
-                                                                                                                                                                    body: 'filename=' + filename
-                                                                                                                                                                })
-                                                                                                                                                                .then(function(response) {
-                                                                                                                                                                    // Handle the response
-                                                                                                                                                                    if (response.ok) {
-                                                                                                                                                                        console.log('Image deleted successfully');
-                                                                                                                                                                    } else {
-                                                                                                                                                                        console.error('Failed to delete image');
-                                                                                                                                                                    }
-                                                                                                                                                                })
-                                                                                                                                                                .catch(function(error) {
-                                                                                                                                                                    console.error('An error occurred:', error);
-                                                                                                                                                                });
-                                                                                                                                                            });
-                                                                                                                                                        });
-                                                                                                                                                        */
+                                                                                                                                                                                        fetch('/delete_image', {
+                                                                                                                                                                                            method: 'POST',
+                                                                                                                                                                                            headers: {
+                                                                                                                                                                                                'Content-Type': 'application/x-www-form-urlencoded'
+                                                                                                                                                                                            },
+                                                                                                                                                                                            body: 'filename=' + filename
+                                                                                                                                                                                        })
+                                                                                                                                                                                        .then(function(response) {
+                                                                                                                                                                                            // Handle the response
+                                                                                                                                                                                            if (response.ok) {
+                                                                                                                                                                                                console.log('Image deleted successfully');
+                                                                                                                                                                                            } else {
+                                                                                                                                                                                                console.error('Failed to delete image');
+                                                                                                                                                                                            }
+                                                                                                                                                                                        })
+                                                                                                                                                                                        .catch(function(error) {
+                                                                                                                                                                                            console.error('An error occurred:', error);
+                                                                                                                                                                                        });
+                                                                                                                                                                                    });
+                                                                                                                                                                                });
+                                                                                                                                                                                */
 
         /*
         function downloadImage() {
