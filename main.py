@@ -260,6 +260,22 @@ def Any():
 def landingPage_eng():
     return render_template('landingPage_eng.html')
 
+@app.route('/iniciaSesion')
+def iniciaSesion():
+    return render_template('iniciaSesion.html')
+
+@app.route('/logIn')
+def logIn():
+    return render_template('logIn.html')
+
+@app.route('/registro')
+def registro():
+    return render_template('registro.html')
+
+@app.route('/signUp')
+def signUp():
+    return render_template('signUp.html')
+
 @app.route('/delete_image', methods=['POST'])
 def delete_image():
     global bucket

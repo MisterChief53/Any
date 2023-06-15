@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>ANY</title>
+    <!-- *BOOTSTRAP CSS INTERNO -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_any.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_login_signup.css')}}">
+    <link rel="any icon" href="{{ url_for('static', filename='img/ANY..svg')}}">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light ">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="."><img class="logo" src="." alt=""></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav  menu_header">
+                        <a class="list_item_header" aria-current="page" href="{{ url_for('landingPage') }}"> <img src="{{ url_for('static', filename='img/ANY..svg')}}" alt=""></a>
+
+                        <div id="headerBtns">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle dpdown_header" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                  Idioma
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ url_for('logIn') }}">Inglés</a></li>
+                                    <li><a class="dropdown-item active" href="#">Español</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('signUp') }}">Sign Up</a> -->
+                            <a class="list_item_header sec_boton" aria-current="page" href="{{ url_for('registro') }}">Regístrate</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="formSession">
+        <h2>Inicia Sesión</h2>
+        <form action="/" method="POST">
+            <input type="email" id="signup-email" class="inp" name="signup-email" placeholder="Correo" required>
+            <br>
+            <input type="password" id="signup-password" class="inp" name="signup-password" placeholder="Contraseña" required>
+            <br>
+            <input type="submit" id="subBtn" value="Iniciar Sesión">
+        </form>
+
+    </section>
+
+    <!-- *BOOTSTRAP JS INTERNO -->
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js')}} "></script>
+
+</body>
+
+</html>
