@@ -99,6 +99,7 @@ def index():
     global imagePath
     global bucket
     global filename
+    
     if request.method == 'POST' and request.form.get('form_name') == 'keywordsForm':
         keywords = []
         keywords.append(request.form["keyword1"])
@@ -112,17 +113,19 @@ def index():
         colors.append(request.form["color3"])
 
         description = request.form["Description"]
-
         source_page = request.form["source_page"]
+        template_name = ""
+        
         #print(f"Valor de source_page: {source_page}")
         if source_page == "Any.html":
             system_message = "Eres un copywriter y escribes publicidad. Tus respuestas están pensadas para usarse en posts de Instagram y son de tamaño mediano"
             generate_prompt_func = generate_prompt
+            template_name = 'Any.html'
         elif source_page == "Any_eng.html":
             system_message = "You are a copywriter and you write advertising. Your responses are intended for use in Instagram posts and are of medium size"
             generate_prompt_func = generate_prompt_eng
+            template_name = 'Any_eng.html'
         else:
-            
             return "Página de origen no válida"
 
         response = openai.ChatCompletion.create(
@@ -206,14 +209,41 @@ def index():
         
         print(f"filename to send to frontend: {filename}")
 
-        return redirect(url_for("index", result=result, fileName=destination_blob_name, imagePath=imagePath, _anchor="instaPost"))
-        
+        return redirect(url_for("index", result=result, fileName=destination_blob_name, imagePath=imagePath, _anchor="instaPost", source_page=source_page))
+    
     destination_blob_name = request.args.get("fileName")
     result = request.args.get("result")
     imagePath = request.args.get("imagePath")
 
-    return render_template('Any_eng.html', result=result, imagePath=imagePath, fileName=destination_blob_name)
+    source_page = request.args.get("source_page")
+    template_name = ""
 
+    if source_page == "Any.html":
+        template_name = 'Any.html'
+    elif source_page == "Any_eng.html":
+        template_name = 'Any_eng.html'
+    else:
+        return "Página de origen no válida"
+
+    return render_template(template_name, result=result, imagePath=imagePath, fileName=destination_blob_name)
+
+@app.route('/', methods=['GET'])
+def index_get():
+    source_page = request.args.get("source_page")
+    template_name = ""
+
+    if source_page == "Any.html":
+        template_name = 'Any.html'
+    elif source_page == "Any_eng.html":
+        template_name = 'Any_eng.html'
+    else:
+        return redirect(url_for("invalid_page"))
+
+    return render_template(template_name)
+
+@app.route('/invalid_page')
+def invalid_page():
+    return "Página de origen no válida"
         
 @app.route('/importance_endpoint', methods=['POST'])
 def importance_endpoint():
