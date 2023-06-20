@@ -216,34 +216,14 @@ def index():
     imagePath = request.args.get("imagePath")
 
     source_page = request.args.get("source_page")
-    template_name = ""
+    template_name = "Any.html"
 
     if source_page == "Any.html":
         template_name = 'Any.html'
     elif source_page == "Any_eng.html":
         template_name = 'Any_eng.html'
-    else:
-        return "Página de origen no válida"
-
+    
     return render_template(template_name, result=result, imagePath=imagePath, fileName=destination_blob_name)
-
-@app.route('/', methods=['GET'])
-def index_get():
-    source_page = request.args.get("source_page")
-    template_name = ""
-
-    if source_page == "Any.html":
-        template_name = 'Any.html'
-    elif source_page == "Any_eng.html":
-        template_name = 'Any_eng.html'
-    else:
-        return redirect(url_for("invalid_page"))
-
-    return render_template(template_name)
-
-@app.route('/invalid_page')
-def invalid_page():
-    return "Página de origen no válida"
         
 @app.route('/importance_endpoint', methods=['POST'])
 def importance_endpoint():
