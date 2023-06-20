@@ -12,6 +12,8 @@ from google.cloud import storage
 from google.oauth2 import service_account
 import logging
 import sys
+from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
 
 # Create a custom handler that directs the log output to stderr
 handler = logging.StreamHandler(stream=sys.stderr)
@@ -91,6 +93,23 @@ bucket = client.get_bucket(buckets[0].name)
 
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:1234@localhost/Any'
+db = SQLAlchemy(app)
+
+class Users(db.Model):
+    __tablename__ = 'Users'
+    __table_args__ = {'extend_existing': True}
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(256), unique=True, nullable=False)
+    email = db.Column(db.String(256), unique=True, nullable=False)
+    password = db.Column(db.String(256), nullable=False)
+
+    def set_password(self, password):
+        self.password = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
+
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 @app.route('/', methods=['GET', 'POST'])
@@ -301,6 +320,50 @@ def delete_image():
     print("image deleteddddd")
 
     return 'Image deleted successfully'
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        email = request.form['email']
+        password = request.form['password']
+
+        # Check if the username or email already exists in the database
+        existing_user = Users.query.filter(
+            (Users.username == username) | (Users.email == email)
+        ).first()
+        if existing_user:
+            return 'Username or email already exists'
+
+        new_user = Users(username=username, email=email)
+        new_user.set_password(password)
+
+        db.session.add(new_user)
+        db.session.commit()
+
+        return 'Registration successful'
+
+    return render_template('signUp.html')
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username_or_email = request.form['username_or_email']
+        password = request.form['password']
+
+        user = Users.query.filter(
+            (Users.username == username_or_email) | (Users.email == username_or_email)
+        ).first()
+
+        if user and user.check_password(password):
+            return 'Login successful'
+        else:
+            return 'Invalid username/email or password'
+
+    return render_template('logIn.html')
+
+
 
 def generate_prompt(keywords, description, importanceArray):
     keyword_list = ""
