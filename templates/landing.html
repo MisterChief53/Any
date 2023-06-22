@@ -25,15 +25,30 @@
                         <div id="headerBtns">
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle dpdown_header" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    {% block language %}{% endblock %}
+                                    {% if language == 'english' %}
+                                        Language
+                                    {% else %}
+                                        Idioma
+                                    {% endif %}
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="{{ url_for('landingPage_eng') }}">English</a></li>
-                                    <li><a class="dropdown-item" href="{{ url_for('landingPage') }}">Spanish</a></li>
+                                    {% if language == 'english' %}
+                                        <li><a class="dropdown-item" href="{{ url_for('landingPage_eng') }}">English</a></li>
+                                        <li><a class="dropdown-item" href="{{ url_for('landingPage') }}">Spanish</a></li>
+                                    {% else %}
+                                        <li><a class="dropdown-item" href="{{ url_for('landingPage') }}">Español</a></li>
+                                        <li><a class="dropdown-item" href="{{ url_for('landingPage_eng') }}">Ingles</a></li>
+                                    {% endif %}
                                 </ul>
+                                
                             </div>
-
-                            <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('Any') }}">Try ANY</a>
+                            <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('Any') }}">
+                                {% if language == 'english' %}
+                                    Try ANY
+                                {% else %}
+                                    Probar ANY
+                                {% endif %}
+                            </a>
                         </div>
 
                     </div>
@@ -45,40 +60,46 @@
     <main>
         <section id="titulo">
             <div id="anyTitulo">
-                <h1 class="gradientLyrics">{% block headline %}{% endblock %}</h1>
+                <h1 class="gradientLyrics">{% if language == 'english' %}ANY.{% else %}ANY.{% endif %}</h1>
             </div>
-            <p class="paso">{% block description %}{% endblock %}</p>
-            <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('Any') }}">Try ANY</a>
+            <p class="paso">{% if language == 'english' %}Design the post you want, no matter who you are.{% else %}Diseña la publicación que quieras, no importa quién seas.{% endif %}</p>
+            <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('Any') }}">
+                {% if language == 'english' %}
+                    Try ANY
+                {% else %}
+                    Probar ANY
+                {% endif %}
+            </a>
         </section>
 
         <section id="solo4pasos">
             <div>
-                <h2>{% block steps_heading %}{% endblock %}</h2>
+                <h2>{% if language == 'english' %}ANY is the perfect tool to design posts in just <span>4 steps</span>{% else %}ANY es la herramienta perfecta para diseñar publicaciones en solo <span>4 pasos</span>{% endif %}</h2>
             </div>
             <div class="pasosLanding">
                 <div class="stepLand">
                     <img src="{{ url_for('static', filename='img/emojione-monotone_letter-a.svg')}}" alt="">
-                    <h5>{% block step1_title %}{% endblock %}</h5>
+                    <h5>{% if language == 'english' %}Description{% else %}Descripción{% endif %}</h5>
                 </div>
                 <div class="stepLand">
                     <img src="{{ url_for('static', filename='img/colors.svg')}}" alt="">
-                    <h5>{% block step2_title %}{% endblock %}</h5>
+                    <h5>{% if language == 'english' %}Colors{% else %}Colores{% endif %}</h5>
                 </div>
                 <div class="stepLand">
                     <img src="{{ url_for('static', filename='img/llave.svg')}}" alt="">
-                    <h5>{% block step3_title %}{% endblock %}</h5>
+                    <h5>{% if language == 'english' %}Keywords{% else %}Palabras clave{% endif %}</h5>
                 </div>
                 <div class="stepLand">
                     <img src="{{ url_for('static', filename='img/circulos.svg')}}" alt="">
-                    <h5>{% block step4_title %}{% endblock %}</h5>
+                    <h5>{% if language == 'english' %}Priority{% else %}Prioridad{% endif %}</h5>
                 </div>
             </div>
         </section>
 
         <section id="imgsRapidas">
             <div id="textImgsRapidas">
-                <h2>{% block design_heading %}{% endblock %}</h2>
-                <p>{% block design_description %}{% endblock %}</p>
+                <h2>{% if language == 'english' %}Design as fast as you imagine{% else %}Diseña tan rápido como imagines{% endif %}</h2>
+                <p>{% if language == 'english' %}In 4 simple steps, Artificial Intelligence will generate the ideal advertisement that your hands have not created but your mind has imagined.{% else %}En 4 sencillos pasos, la Inteligencia Artificial generará el anuncio ideal que tus manos no han creado pero tu mente ha imaginado.{% endif %}</p>
             </div>
 
             <div>
@@ -88,14 +109,21 @@
 
         <section id="cualquier">
             <img src="{{ url_for('static', filename='img/index/mundo.svg')}}" alt="">
-            <h2>{% block any_heading %}{% endblock %}</h2>
+            <h2>{% if language == 'english' %}With <span>ANY</span>, anyone from anywhere can design any post.{% else %}Con <span>ANY</span>, cualquiera desde cualquier lugar puede diseñar cualquier publicación.{% endif %}</h2>
         </section>
 
         <section id="masDiseño">
             <div id="txtMasDiseño">
-                <h1 class="gradientLyrics2">{% block more_than_design %}{% endblock %}</h1>
-                <p>{% block more_than_design_description %}{% endblock %}</p>
-                <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('Any') }}">Try ANY</a>
+                <h1 class="gradientLyrics2">{% if language == 'english' %}ANY is more than design{% else %}ANY es más que diseño{% endif %}</h1>
+                <p>{% if language == 'english' %}Image + Description + Hashtags{% else %}Imagen + Descripción + Hashtags{% endif %}</p>
+                <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('Any') }}">
+                    {% if language == 'english' %}
+                        Try ANY
+                    {% else %}
+                        Prueba ANY
+                    {% endif %}
+                </a>
+                
             </div>
         </section>
     </main>
