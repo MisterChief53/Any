@@ -275,20 +275,23 @@ def importance_endpoint():
 @app.route('/landing')
 def landingPage():
     language = 'Spanish'  
-    return render_template('landing.html', language=language)
+    return render_template('landingPage.html', language=language)
    
 @app.route('/landing_eng')
 def landingPage_eng():
     language = 'english'  
-    return render_template('landing.html', language=language)
-
-@app.route('/Any_eng')
-def Any_eng():
-    return render_template('Any_eng.html')
+    return render_template('landingPage.html', language=language)
 
 @app.route('/Any')
 def Any():
-    return render_template('Any.html')
+    language = 'Spanish'  
+    return render_template('Any.html', language=language)
+
+@app.route('/Any_eng')
+def Any_eng():
+    language = 'english'  
+    return render_template('Any.html', language=language)
+
 
 @app.route('/iniciaSesion')
 def iniciaSesion():
