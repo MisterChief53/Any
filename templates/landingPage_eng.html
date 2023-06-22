@@ -1,115 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'landing.html' %}
 
-<head>
-    <title>ANY | landing</title>
-    <!-- *BOOTSTRAP CSS INTERNO -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_index.css')}}">
-    <link rel="any icon" href="{{ url_for('static', filename='img/ANY..svg')}}">
-</head>
+{% block title %}
+ANY | landing
+{% endblock %}
 
-<body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light ">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="."><img class="logo" src="." alt=""></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav  menu_header">
-                        <a class="list_item_header" aria-current="page" href="{{ url_for('landingPage_eng') }}"> <img src="{{ url_for('static', filename='img/ANY..svg')}}" alt=""></a>
+{% block headline %}
+ANY.
+{% endblock %}
 
-                        <div id="headerBtns">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle dpdown_header" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                  Language
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item active" href="#">English</a></li>
-                                    <li><a class="dropdown-item" href="{{ url_for('landingPage') }}">Spanish</a></li>
-                                </ul>
-                            </div>
+{% block description %}
+Design the post you want, no matter who you are.
+{% endblock %}
 
-                            <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('Any_eng') }}">Try ANY</a>
-                        </div>
+{% block language %}
+language
+{% endblock %}
 
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </header>
+{% block steps_heading %}
+ANY is the perfect tool to design posts in just <span>4 steps</span>
+{% endblock %}
 
-    <main>
-        <section id="titulo">
-            <div id="anyTitulo">
-                <h1 class="gradientLyrics">ANY.</h1>
-            </div>
-            <p class="paso">Design the post you want, no matter who you are.</p>
-            <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('Any_eng') }}">Try ANY</a>
-        </section>
+{% block step1_title %}
+Description
+{% endblock %}
 
-        <section id="solo4pasos">
-            <div>
-                <h2>ANY is the perfect tool to design posts in just <span>4 steps</span></h2>
-            </div>
-            <div class="pasosLanding">
-                <div class="stepLand">
-                    <img src="{{ url_for('static', filename='img/emojione-monotone_letter-a.svg')}}" alt="">
-                    <h5>Description</h5>
-                </div>
-                <div class="stepLand">
-                    <img src="{{ url_for('static', filename='img/colors.svg')}}" alt="">
-                    <h5>Colors</h5>
-                </div>
-                <div class="stepLand">
-                    <img src="{{ url_for('static', filename='img/llave.svg')}}" alt="">
-                    <h5>Keywords</h5>
-                </div>
-                <div class="stepLand">
-                    <img src="{{ url_for('static', filename='img/circulos.svg')}}" alt="">
-                    <h5>Priority</h5>
-                </div>
-            </div>
-        </section>
+{% block step2_title %}
+Colors
+{% endblock %}
 
-        <section id="imgsRapidas">
-            <div id="textImgsRapidas">
-                <h2>Design as fast as you imagine</strong>
-                </h2>
-                <p>In 4 simple steps, Artificial Intelligence will generate the ideal advertisement that your hands have not created but your mind has imagined.</p>
-            </div>
+{% block step3_title %}
+Keywords
+{% endblock %}
 
-            <div>
-                <img src="{{ url_for('static', filename='img/index/insta.svg')}}" alt="">
-            </div>
-        </section>
+{% block step4_title %}
+Priority
+{% endblock %}
 
-        <section id="cualquier">
-            <img src="{{ url_for('static', filename='img/index/mundo.svg')}}" alt="">
-            <h2>With <span> ANY</span>, anyone from anywhere can design any post.</h2>
-        </section>
+{% block design_heading %}
+Design as fast as you imagine
+{% endblock %}
 
-        <section id="masDiseño">
-            <div id="txtMasDiseño">
-                <h1 class="gradientLyrics2">ANY is more than design</h1>
-                <p>Image + Description + Hashtags</p>
-                <!-- <p>Post + Description + Hashtags</p> -->
-                <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('Any_eng') }}">Try ANY</a>
+{% block design_description %}
+In 4 simple steps, Artificial Intelligence will generate the ideal advertisement that your hands have not created but your mind has imagined.
+{% endblock %}
 
-            </div>
-        </section>
-    </main>
+{% block any_heading %}
+With <span>ANY</span>, anyone from anywhere can design any post.
+{% endblock %}
 
-    <footer>
-        <a class="list_item_header" aria-current="page" href=""> <img src="{{ url_for('static', filename='img/ANY..svg')}}" alt=""></a>
-    </footer>
+{% block more_than_design %}
+ANY is more than design
+{% endblock %}
 
-
-    <!-- *BOOTSTRAP JS INTERNO -->
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
-</body>
-
-</html>
+{% block more_than_design_description %}
+Image + Description + Hashtags
+{% endblock %}

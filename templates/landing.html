@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <!-- *BOOTSTRAP CSS INTERNO -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_index.css')}}">
+    <link rel="any icon" href="{{ url_for('static', filename='img/ANY..svg')}}">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light ">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="."><img class="logo" src="." alt=""></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav  menu_header">
+                        <a class="list_item_header" aria-current="page" href="{{ url_for('landingPage') }}"> <img src="{{ url_for('static', filename='img/ANY..svg')}}" alt=""></a>
+
+                        <div id="headerBtns">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle dpdown_header" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {% block language %}{% endblock %}
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ url_for('landingPage_eng') }}">English</a></li>
+                                    <li><a class="dropdown-item" href="{{ url_for('landingPage') }}">Spanish</a></li>
+                                </ul>
+                            </div>
+
+                            <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('Any') }}">Try ANY</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="titulo">
+            <div id="anyTitulo">
+                <h1 class="gradientLyrics">{% block headline %}{% endblock %}</h1>
+            </div>
+            <p class="paso">{% block description %}{% endblock %}</p>
+            <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('Any') }}">Try ANY</a>
+        </section>
+
+        <section id="solo4pasos">
+            <div>
+                <h2>{% block steps_heading %}{% endblock %}</h2>
+            </div>
+            <div class="pasosLanding">
+                <div class="stepLand">
+                    <img src="{{ url_for('static', filename='img/emojione-monotone_letter-a.svg')}}" alt="">
+                    <h5>{% block step1_title %}{% endblock %}</h5>
+                </div>
+                <div class="stepLand">
+                    <img src="{{ url_for('static', filename='img/colors.svg')}}" alt="">
+                    <h5>{% block step2_title %}{% endblock %}</h5>
+                </div>
+                <div class="stepLand">
+                    <img src="{{ url_for('static', filename='img/llave.svg')}}" alt="">
+                    <h5>{% block step3_title %}{% endblock %}</h5>
+                </div>
+                <div class="stepLand">
+                    <img src="{{ url_for('static', filename='img/circulos.svg')}}" alt="">
+                    <h5>{% block step4_title %}{% endblock %}</h5>
+                </div>
+            </div>
+        </section>
+
+        <section id="imgsRapidas">
+            <div id="textImgsRapidas">
+                <h2>{% block design_heading %}{% endblock %}</h2>
+                <p>{% block design_description %}{% endblock %}</p>
+            </div>
+
+            <div>
+                <img src="{{ url_for('static', filename='img/index/insta.svg')}}" alt="">
+            </div>
+        </section>
+
+        <section id="cualquier">
+            <img src="{{ url_for('static', filename='img/index/mundo.svg')}}" alt="">
+            <h2>{% block any_heading %}{% endblock %}</h2>
+        </section>
+
+        <section id="masDiseño">
+            <div id="txtMasDiseño">
+                <h1 class="gradientLyrics2">{% block more_than_design %}{% endblock %}</h1>
+                <p>{% block more_than_design_description %}{% endblock %}</p>
+                <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('Any') }}">Try ANY</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <a class="list_item_header" aria-current="page" href=""> <img src="{{ url_for('static', filename='img/ANY..svg')}}" alt=""></a>
+    </footer>
+
+
+    <!-- *BOOTSTRAP JS INTERNO -->
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
+</body>
+
+</html>
