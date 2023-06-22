@@ -167,7 +167,7 @@
                         {% endif %}
                     </p>                    
                     <div id="palabras">
-                        {% if language == 'english' %}
+                    {% if language == 'english' %}
                         <div class="textContainerP3">
                             <input type="text" id="text-input1" class="txt txtP3" placeholder="Keyword 1" name="keyword1" />
                             <!-- <p class="numChar"><span></span> / 50 characters</p> -->
@@ -253,45 +253,74 @@
                 </section>
 
                 <section id="paso5">
-                    <p class="paso"><span>Paso 5.</span> Especificaciones de la descripción del anuncio </p>
+                    {% if language == 'english' %}
+                    <p class="paso"><span>Step 5.</span> Ad description specifications</p>
+                    {% else %}
+                    <p class="paso"><span>Paso 5.</span> Especificaciones de la descripción del anuncio</p>
+                    {% endif %}
 
                     <br>
+                    {% if language == 'english' %}
+                    <input type="text" class="txt" placeholder="Business name">
+                    {% else %}
                     <input type="text" class="txt" placeholder="Nombre del negocio">
+                    {% endif %}
                     <br>
 
                     <div class="selectOptions">
                         <div class="selectOption">
-                            <p class="pstep5">Longitud: </p>
-                            <select name="length">
-                            <option value="corto" selected>Corto</option>
-                            <option value="largo">Largo</option>
-                        </select>
+                            {% if language == 'english' %}
+                                <p class="pstep5">Length: </p>
+                                <select name="length">
+                                    <option value="short" selected>Short</option>
+                                    <option value="long">Long</option>
+                                </select>
+                            {% else %}
+                                <p class="pstep5">Longitud: </p>
+                                <select name="length">
+                                    <option value="corto" selected>Corto</option>
+                                    <option value="largo">Largo</option>
+                                </select>
+                            {% endif %}
                         </div>
                         <div class="selectOption">
-                            <p class="pstep5">Tono: </p>
-                            <select name="tone">
-                                <option value="Profesional" selected>Profesional</option>
-                                <option value="Gracioso">Gracioso</option>
-                            <option value="Ingenioso">Ingenioso</option>
-                        </select>
+                            {% if language == 'english' %}
+                                <p class="pstep5">Tone: </p>
+                                <select name="tone">
+                                    <option value="professional" selected>Professional</option>
+                                    <option value="funny">Funny</option>
+                                    <option value="clever">Clever</option>
+                                </select>
+                            {% else %}
+                                <p class="pstep5">Tono: </p>
+                                <select name="tone">
+                                    <option value="Profesional" selected>Profesional</option>
+                                    <option value="Gracioso">Gracioso</option>
+                                    <option value="Ingenioso">Ingenioso</option>
+                                </select>
+                            {% endif %}
                         </div>
                     </div>
+                    
 
-                    <input type="text" class="txt" placeholder="Añade una promoción">
+                    <input type="text" class="txt" placeholder="{% if language == 'english' %}Add a promotion{% else %}Añade una promoción{% endif %}">
                     <!-- <input type="checkbox" id="prom" name="prom">
                     <label for="prom">No quiero una promoción</label> -->
 
                     <div class="sigBack smtdiv">
-                        <a href="#paso4" class="boton backBtn ">Atrás</a>
+                        <a href="#paso4" class="boton backBtn ">{% if language == 'english' %}Back{% else %}Atrás{% endif %}</a>
                         <!--<a href="#resultado" id="add-button" class="boton">Generar</a>-->
                         <input type="hidden" name="source_page" value="Any.html">
-                        <input type="submit" id="add-button" class="boton" value="Generar">
-                    </div>
+                        <input type="submit" id="add-button" class="boton" value="{% if language == 'english' %}Generate{% else %}Generar{% endif %}">
+                    </div>                    
                 </section>
 
                 <section id="resultado">
-                    <p class="paso"><span>Tu anuncio está listo</span> <br> Así se vería tu post en instagram</p>
-
+                    <p class="paso">
+                        <span>{% if language == 'english' %}Your ad is ready{% else %}Tu anuncio está listo{% endif %}</span>
+                        <br>
+                        {% if language == 'english' %}This is how your post would look on Instagram{% else %}Así se vería tu publicación en Instagram{% endif %}
+                    </p>                    
                     <div id="instaPost">
                         <img class="instaIcon" src="{{ url_for('static', filename='img/profile.svg')}}" alt=""> {% if imagePath %}
                         <!--<img src="{{ url_for('static', filename='img/img_resultado/response_num0.png')}}" alt="" id="imageAnswer">-->
