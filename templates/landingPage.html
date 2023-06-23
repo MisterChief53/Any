@@ -33,21 +33,21 @@
                                 </button>
                                 <ul class="dropdown-menu">
                                     {% if language == 'english' %}
-                                        <li><a class="dropdown-item" href="{{ url_for('landingPage_eng') }}">English</a></li>
-                                        <li><a class="dropdown-item" href="{{ url_for('landingPage') }}">Spanish</a></li>
+                                    <li><a class="dropdown-item" href="{{ url_for('landingPage_eng') }}">English</a></li>
+                                    <li><a class="dropdown-item" href="{{ url_for('landingPage') }}">Spanish</a></li>
                                     {% else %}
-                                        <li><a class="dropdown-item" href="{{ url_for('landingPage') }}">Español</a></li>
-                                        <li><a class="dropdown-item" href="{{ url_for('landingPage_eng') }}">Ingles</a></li>
+                                    <li><a class="dropdown-item" href="{{ url_for('landingPage') }}">Español</a></li>
+                                    <li><a class="dropdown-item" href="{{ url_for('landingPage_eng') }}">Ingles</a></li>
                                     {% endif %}
                                 </ul>
-                                
+
                             </div>
-                            <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('Any') }}">
+                            <a class="list_item_header main_boton" aria-current="page" {% if language=='english' %} href="{{ url_for('Any_eng') }}" {% else %} href="{{ url_for('Any') }}" {% endif %}>
                                 {% if language == 'english' %}
-                                    Try ANY
-                                {% else %}
-                                    Probar ANY
-                                {% endif %}
+                            Try ANY
+                            {% else %}
+                            Probar ANY
+                            {% endif %}
                             </a>
                         </div>
 
@@ -63,12 +63,12 @@
                 <h1 class="gradientLyrics">{% if language == 'english' %}ANY.{% else %}ANY.{% endif %}</h1>
             </div>
             <p class="paso">{% if language == 'english' %}Design the post you want, no matter who you are.{% else %}Diseña la publicación que quieras, no importa quién seas.{% endif %}</p>
-            <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('Any') }}">
+            <a class="list_item_header main_boton" aria-current="page" {% if language=='english' %} href="{{ url_for('Any_eng') }}" {% else %} href="{{ url_for('Any') }}" {% endif %}>
                 {% if language == 'english' %}
-                    Try ANY
-                {% else %}
-                    Probar ANY
-                {% endif %}
+            Try ANY
+            {% else %}
+            Probar ANY
+            {% endif %}
             </a>
         </section>
 
@@ -99,7 +99,8 @@
         <section id="imgsRapidas">
             <div id="textImgsRapidas">
                 <h2>{% if language == 'english' %}Design as fast as you imagine{% else %}Diseña tan rápido como imagines{% endif %}</h2>
-                <p>{% if language == 'english' %}In 4 simple steps, Artificial Intelligence will generate the ideal advertisement that your hands have not created but your mind has imagined.{% else %}En 4 sencillos pasos, la Inteligencia Artificial generará el anuncio ideal que tus manos no han creado pero tu mente ha imaginado.{% endif %}</p>
+                <p>{% if language == 'english' %}In 4 simple steps, Artificial Intelligence will generate the ideal advertisement that your hands have not created but your mind has imagined.{% else %}En 4 sencillos pasos, la Inteligencia Artificial generará
+                    el anuncio ideal que tus manos no han creado pero tu mente ha imaginado.{% endif %}</p>
             </div>
 
             <div>
@@ -116,14 +117,14 @@
             <div id="txtMasDiseño">
                 <h1 class="gradientLyrics2">{% if language == 'english' %}ANY is more than design{% else %}ANY es más que diseño{% endif %}</h1>
                 <p>{% if language == 'english' %}Image + Description + Hashtags{% else %}Imagen + Descripción + Hashtags{% endif %}</p>
-                <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('Any') }}">
+                <a class="list_item_header main_boton" aria-current="page" {% if language=='english' %} href="{{ url_for('Any_eng') }}" {% else %} href="{{ url_for('Any') }}" {% endif %}>
                     {% if language == 'english' %}
-                        Try ANY
-                    {% else %}
-                        Prueba ANY
-                    {% endif %}
+                Try ANY
+                {% else %}
+                Probar ANY
+                {% endif %}
                 </a>
-                
+
             </div>
         </section>
     </main>

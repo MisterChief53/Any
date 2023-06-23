@@ -295,11 +295,13 @@ def Any_eng():
 
 @app.route('/iniciaSesion')
 def iniciaSesion():
-    return render_template('iniciaSesion.html')
+    language = 'Spanish'  
+    return render_template('logIn.html', language=language)
 
 @app.route('/logIn')
 def logIn():
-    return render_template('logIn.html')
+    language = 'english'  
+    return render_template('logIn.html', language=language)
 
 @app.route('/registro')
 def registro():
