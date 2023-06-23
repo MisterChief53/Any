@@ -26,16 +26,29 @@
                         <div id="headerBtns">
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle dpdown_header" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                  Idioma
+                                {% if language == 'english' %}
+                                    Language
+                                {% else %}
+                                    Idioma
+                                {% endif %}
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="{{ url_for('signUp') }}">Inglés</a></li>
-                                    <li><a class="dropdown-item active" href="#">Español</a></li>
+                                    {% if language == 'english' %}
+                                    <li><a class="dropdown-item" href="{{ url_for('signUp') }}">English</a></li>
+                                    <li><a class="dropdown-item" href="{{ url_for('registro') }}">Spanish</a></li>
+                                    {% else %}
+                                    <li><a class="dropdown-item" href="{{ url_for('registro') }}">Español</a></li>
+                                    <li><a class="dropdown-item" href="{{ url_for('signUp') }}">Ingles</a></li>
+                                    {% endif %}                              
                                 </ul>
                             </div>
 
                             <!-- <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('signUp') }}">Sign Up</a> -->
-                            <a class="list_item_header sec_boton" aria-current="page" href="{{ url_for('iniciaSesion') }}">Inicia Sesión</a>
+                            {% if language == 'english' %}
+                                <a class="list_item_header sec_boton active" aria-current="page" href="{{ url_for('login') }}">Login</a>
+                            {% else %}
+                                <a class="list_item_header sec_boton" aria-current="page" href="{{ url_for('iniciaSesion') }}">Inicia Sesión</a>
+                            {% endif %}
                         </div>
 
                     </div>
@@ -45,20 +58,33 @@
     </header>
 
     <section class="formSession">
-        <h2>Regístrate</h2>
+        <h2>
+            {% if language == 'english' %}
+                Sign Up
+            {% else %}
+                Regístrate
+            {% endif %}
+        </h2>
+        
         <form action="/" method="POST">
-            <input type="text" id="signup-name" class="inp" name="signup-name" placeholder="Nombre" required>
+            <input type="text" id="signup-name" class="inp" name="signup-name" placeholder="{% if language == 'english' %}Name{% else %}Nombre{% endif %}" required>
             <br>
-            <input type="email" id="signup-email" class="inp" name="signup-email" placeholder="Correo" required>
+            <input type="email" id="signup-email" class="inp" name="signup-email" placeholder="{% if language == 'english' %}Email{% else %}Correo{% endif %}" required>
             <br>
-            <input type="password" id="signup-password" class="inp" name="signup-password" placeholder="Contraseña" required>
+            <input type="password" id="signup-password" class="inp" name="signup-password" placeholder="{% if language == 'english' %}Password{% else %}Contraseña{% endif %}" required>
             <br>
             <input type="checkbox" id="remember-me" name="remember-me">
-            <label for="remember-me">Acepto los <a href="">términos y condiciones</a></label>
+            <label for="remember-me">
+                {% if language == 'english' %}
+                    I agree to the <a href="">terms and conditions</a>
+                {% else %}
+                    Acepto los <a href="">términos y condiciones</a>
+                {% endif %}
+            </label>
             <br>
-            <input type="submit" id="subBtn" value="Registrarse">
+            <input type="submit" id="subBtn" value="{% if language == 'english' %}Sign Up{% else %}Registrarse{% endif %}">
         </form>
-
+        
     </section>
 
     <!-- *BOOTSTRAP JS INTERNO -->

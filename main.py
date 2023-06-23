@@ -305,11 +305,13 @@ def logIn():
 
 @app.route('/registro')
 def registro():
-    return render_template('registro.html')
+    language = 'Spanish'  
+    return render_template('registro.html', language=language)
 
 @app.route('/signUp')
 def signUp():
-    return render_template('signUp.html')
+    language = 'english' 
+    return render_template('registro.html', language=language)
 
 @app.route('/delete_image', methods=['POST'])
 def delete_image():
