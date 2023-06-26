@@ -21,7 +21,7 @@
           </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav  menu_header">
-                        <a class="list_item_header" aria-current="page" href="{{ url_for('landingPage_eng') }}"> <img src="{{ url_for('static', filename='img/ANY..svg')}}" alt=""></a>
+                        <a class="list_item_header" aria-current="page" {% if language=='english' %} href="{{ url_for('landingPage_eng') }}" {% else %} href="{{ url_for('landingPage') }}" {% endif %}"> <img src="{{ url_for('static', filename='img/ANY..svg')}}" alt=""></a>
 
                         <div id="headerBtns">
                             <div class="dropdown">

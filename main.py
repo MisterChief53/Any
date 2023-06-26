@@ -132,21 +132,17 @@ def index():
         colors.append(request.form["color3"])
 
         description = request.form["Description"]
-        source_page = request.form["source_page"]
-        template_name = ""
-        
-        #print(f"Valor de source_page: {source_page}")
+        source_page = request.form["source_page"]        
+    
         if source_page == "Any.html":
-            system_message = "Eres un copywriter y escribes publicidad. Tus respuestas están pensadas para usarse en posts de Instagram y son de tamaño mediano"
-            generate_prompt_func = generate_prompt
-            template_name = 'Any.html'
-        elif source_page == "Any_eng.html":
-            system_message = "You are a copywriter and you write advertising. Your responses are intended for use in Instagram posts and are of medium size"
-            generate_prompt_func = generate_prompt_eng
-            template_name = 'Any_eng.html'
-        else:
-            return "Página de origen no válida"
-
+            language = request.form.get("language", "Spanish")
+            if language == "english":
+                system_message = "You are a copywriter and you write advertising. Your responses are intended for use in Instagram posts and are of medium size"
+                generate_prompt_func = generate_prompt_eng
+            else:
+                system_message = "Eres un copywriter y escribes publicidad. Tus respuestas están pensadas para usarse en posts de Instagram y son de tamaño mediano"
+                generate_prompt_func = generate_prompt
+        
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[
@@ -228,21 +224,15 @@ def index():
         
         print(f"filename to send to frontend: {filename}")
 
-        return redirect(url_for("index", result=result, fileName=destination_blob_name, imagePath=imagePath, _anchor="instaPost", source_page=source_page))
+        return redirect(url_for("index", result=result, fileName=destination_blob_name, imagePath=imagePath, _anchor="instaPost", source_page=source_page, language=language))
+
     
     destination_blob_name = request.args.get("fileName")
     result = request.args.get("result")
     imagePath = request.args.get("imagePath")
-
-    source_page = request.args.get("source_page")
-    template_name = "Any.html"
-
-    if source_page == "Any.html":
-        template_name = 'Any.html'
-    elif source_page == "Any_eng.html":
-        template_name = 'Any_eng.html'
     
-    return render_template(template_name, result=result, imagePath=imagePath, fileName=destination_blob_name)
+    language = request.args.get("language", "Spanish")
+    return render_template('any.html', result=result, imagePath=imagePath, fileName=destination_blob_name, language=language)
         
 @app.route('/importance_endpoint', methods=['POST'])
 def importance_endpoint():

@@ -21,7 +21,7 @@
               </button>
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div class="navbar-nav  menu_header">
-                            <a class="list_item_header" aria-current="page" href="{{ url_for('landingPage') }}"> <img src="{{ url_for('static', filename='img/ANY..svg')}}" alt=""></a>
+                            <a class="list_item_header" aria-current="page" {% if language=='english' %} href="{{ url_for('landingPage_eng') }}" {% else %} href="{{ url_for('landingPage') }}" {% endif %}"> <img src="{{ url_for('static', filename='img/ANY..svg')}}" alt=""></a>
 
                             <div id="headerBtns">
                                 <div class="dropdown">
@@ -161,7 +161,7 @@
                             {% endif %}
                         </span>
                         {% if language == 'english' %}
-                            Enter 4 keywords for your ad, whether it's price, feature, or emotion.
+                        Write up to 4 keywords for your ad, whether it's price, feature, or emotion.
                         {% else %}
                             Ingresa 4 palabras clave para tu anuncio, ya sea precio, característica o sentimiento.
                         {% endif %}
@@ -215,7 +215,7 @@
                     <!-- <div id="circle-container"></div> -->
 
                     {% if language == 'english' %}
-                        <p id="sinPalabrasCve">You did not enter any keywords</p>
+                        <p id="sinPalabrasCve">You did not write any keywords</p>
                     {% else %}
                         <p id="sinPalabrasCve">No escribiste palabras clave</p>
                     {% endif %}
@@ -289,7 +289,7 @@
                                 <select name="tone">
                                     <option value="professional" selected>Professional</option>
                                     <option value="funny">Funny</option>
-                                    <option value="clever">Clever</option>
+                                    <option value="clever">Witty</option>
                                 </select>
                             {% else %}
                                 <p class="pstep5">Tono: </p>
@@ -310,6 +310,7 @@
                     <div class="sigBack smtdiv">
                         <a href="#paso4" class="boton backBtn ">{% if language == 'english' %}Back{% else %}Atrás{% endif %}</a>
                         <!--<a href="#resultado" id="add-button" class="boton">Generar</a>-->
+                        <input type="hidden" name="language" value="{{ language }}">
                         <input type="hidden" name="source_page" value="Any.html">
                         <input type="submit" id="add-button" class="boton" value="{% if language == 'english' %}Generate{% else %}Generar{% endif %}">
                     </div>                    

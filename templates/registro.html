@@ -21,7 +21,7 @@
           </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav  menu_header">
-                        <a class="list_item_header" aria-current="page" href="{{ url_for('landingPage') }}"> <img src="{{ url_for('static', filename='img/ANY..svg')}}" alt=""></a>
+                        <a class="list_item_header" aria-current="page" {% if language=='english' %} href="{{ url_for('landingPage_eng') }}" {% else %} href="{{ url_for('landingPage') }}" {% endif %}"> <img src="{{ url_for('static', filename='img/ANY..svg')}}" alt=""></a>
 
                         <div id="headerBtns">
                             <div class="dropdown">
@@ -45,9 +45,9 @@
 
                             <!-- <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('signUp') }}">Sign Up</a> -->
                             {% if language == 'english' %}
-                                <a class="list_item_header sec_boton active" aria-current="page" href="{{ url_for('login') }}">Login</a>
+                                <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('logIn') }}">Login</a>
                             {% else %}
-                                <a class="list_item_header sec_boton" aria-current="page" href="{{ url_for('iniciaSesion') }}">Inicia Sesión</a>
+                                <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('iniciaSesion') }}">Inicia Sesión</a>
                             {% endif %}
                         </div>
 
