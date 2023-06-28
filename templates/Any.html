@@ -21,21 +21,36 @@
               </button>
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div class="navbar-nav  menu_header">
-                            <a class="list_item_header" aria-current="page" href="{{ url_for('landingPage') }}"> <img src="{{ url_for('static', filename='img/ANY..svg')}}" alt=""></a>
+                            <a class="list_item_header" aria-current="page" {% if language=='english' %} href="{{ url_for('landingPage_eng') }}" {% else %} href="{{ url_for('landingPage') }}" {% endif %}"> <img src="{{ url_for('static', filename='img/ANY..svg')}}" alt=""></a>
 
                             <div id="headerBtns">
                                 <div class="dropdown">
                                     <button class="btn btn-secondary dropdown-toggle dpdown_header" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                      Idioma
+                                    {% if language == 'english' %}
+                                        Language
+                                    {% else %}
+                                        Idioma
+                                    {% endif %} 
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="{{ url_for('Any_eng') }}">Inglés</a></li>
-                                        <li><a class="dropdown-item active" href="#">Español</a></li>
+                                    {% if language == 'english' %}
+                                        <li><a class="dropdown-item" href="{{ url_for('Any_eng') }}">English</a></li>
+                                        <li><a class="dropdown-item" href="{{ url_for('Any') }}">Spanish</a></li>
+                                    {% else %}
+                                        <li><a class="dropdown-item" href="{{ url_for('Any') }}">Español</a></li>
+                                        <li><a class="dropdown-item" href="{{ url_for('Any_eng') }}">Ingles</a></li>
+                                    {% endif %}
                                     </ul>
                                 </div>
-
-                                <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('registro') }}">Regístrate</a>
-                                <a class="list_item_header sec_boton" aria-current="page" href="{{ url_for('iniciaSesion') }}">Inicia Sesión</a>
+                            
+                            
+                                {% if language == 'english' %}
+                                    <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('signUp') }}">Sign up</a>
+                                    <a class="list_item_header sec_boton" aria-current="page" href="{{ url_for('logIn') }}">Log in</a>
+                                {% else %}
+                                    <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('registro') }}">Regístrate</a>
+                                    <a class="list_item_header sec_boton" aria-current="page" href="{{ url_for('iniciaSesion') }}">Inicia Sesión</a>
+                                {% endif %}
                             </div>
 
                         </div>
@@ -50,23 +65,66 @@
                     <div id="anyTitulo">
                         <h1 class="gradientLyrics">ANY.</h1>
                     </div>
-                    <p class="paso"><span>Paso 1.</span> Diseña un anuncio que venda...</p>
+                    <p class="paso">
+                        {% if language == 'english' %}
+                          <span>Step 1.</span> Create a post to sell...
+                        {% else %}
+                          <span>Paso 1.</span> Diseña un anuncio que venda...
+                        {% endif %}
+                      </p>
                     <div id="text-container">
                         <div id="mainTextBox">
                             <input type="hidden" name="form_name" value="keywordsForm">
-                            <input type="text" class="txt" id="descripcion" placeholder="Describe tu producto/servicio" name="Description" />
-                            <!-- <a href="#paso2" id="botonTextBox"><img src="../img/arrow-forward-rounded.svg" alt=""></a> -->
+                            <input type="text" class="txt" id="descripcion" name="Description" 
+                            {% if language == 'english' %}
+                                placeholder="Describe your product/service"
+                            {% else %}
+                                placeholder="Describe tu producto/servicio"
+                            {% endif %}
+                        />                            <!-- <a href="#paso2" id="botonTextBox"><img src="../img/arrow-forward-rounded.svg" alt=""></a> -->
                         </div>
-                        <p class="numChar"><span id="charCount"></span> / 50 caracteres</p>
-
-                        <a href="#paso2" class="boton">Siguiente</a>
+                        <p class="numChar">
+                            {% if language == 'english' %}
+                                <span id="charCount"></span> / 50 characters
+                            {% else %}
+                                <span id="charCount"></span> / 50 caracteres
+                            {% endif %}
+                        </p>
+                        
+                        <a href="#paso2" class="boton">
+                            {% if language == 'english' %}
+                                Next
+                            {% else %}
+                                Siguiente
+                            {% endif %}
+                        </a>                        
                         <!-- <button href="#paso2" </button> -->
                     </div>
                 </section>
 
                 <section id="paso2">
-                    <p class="paso"><span>Paso 2. </span>Elige los colores de tu anuncio (máximo 3)</p>
-                    <p id="subtitulo">Da clic sobre el recuadro para cambiar el color</p>
+                    <p class="paso">
+                        <span>
+                            {% if language == 'english' %}
+                                Step 2.
+                            {% else %}
+                                Paso 2.
+                            {% endif %}
+                        </span>
+                        {% if language == 'english' %}
+                            Choose the colors for your ad (up to 3)
+                        {% else %}
+                            Elige los colores de tu anuncio (máximo 3)
+                        {% endif %}
+                    </p>
+                    
+                    <p id="subtitulo">
+                        {% if language == 'english' %}
+                            Click on the box to change the color
+                        {% else %}
+                            Da clic sobre el recuadro para cambiar el color
+                        {% endif %}
+                    </p>                    
                     <div id="colors">
                         <h3 id="menos" class="btnP2" onclick="deleteColor()">-</h3>
                         <input type="color" id="color1" class="color-input" name="color1">
@@ -75,41 +133,93 @@
                         <h3 id="mas" class="btnP2" onclick="addColor()">+</h3>
                     </div>
                     <div class="sigBack">
-                        <a href="#paso1" class="boton backBtn ">Atrás</a>
-                        <a href="#paso3" class="boton ">Siguiente</a>
+                        <a href="#paso1" class="boton backBtn">
+                            {% if language == 'english' %}
+                                Back
+                            {% else %}
+                                Atrás
+                            {% endif %}
+                        </a>
+                        
+                        <a href="#paso3" class="boton">
+                            {% if language == 'english' %}
+                                Next
+                            {% else %}
+                                Siguiente
+                            {% endif %}
+                        </a>                        
                     </div>
                 </section>
 
                 <section id="paso3">
-                    <p class="paso"><span>Paso 3.</span> Ingresa 4 palabras clave para tu anuncio, ya sea precio, característica o sentimiento.</p>
-
+                    <p class="paso">
+                        <span>
+                            {% if language == 'english' %}
+                                Step 3.
+                            {% else %}
+                                Paso 3.
+                            {% endif %}
+                        </span>
+                        {% if language == 'english' %}
+                        Write up to 4 keywords for your ad, whether it's price, feature, or emotion.
+                        {% else %}
+                            Ingresa 4 palabras clave para tu anuncio, ya sea precio, característica o sentimiento.
+                        {% endif %}
+                    </p>                    
                     <div id="palabras">
+                    {% if language == 'english' %}
+                        <div class="textContainerP3">
+                            <input type="text" id="text-input1" class="txt txtP3" placeholder="Keyword 1" name="keyword1" />
+                            <!-- <p class="numChar"><span></span> / 50 characters</p> -->
+                    
+                            <input type="text" id="text-input2" class="txt txtP3" placeholder="Keyword 2" name="keyword2" />
+                        </div>
+                        <div class="textContainerP3">
+                            <input type="text" id="text-input3" class="txt txtP3" placeholder="Keyword 3" name="keyword3" />
+                            <input type="text" id="text-input4" class="txt txtP3" placeholder="Keyword 4" name="keyword4" />
+                        </div>
+                    {% else %}
                         <div class="textContainerP3">
                             <input type="text" id="text-input1" class="txt txtP3" placeholder="Palabra clave 1" name="keyword1" />
                             <!-- <p class="numChar"><span></span> / 50 caracteres</p> -->
-
+                    
                             <input type="text" id="text-input2" class="txt txtP3" placeholder="Palabra clave 2" name="keyword2" />
                         </div>
                         <div class="textContainerP3">
                             <input type="text" id="text-input3" class="txt txtP3" placeholder="Palabra clave 3" name="keyword3" />
                             <input type="text" id="text-input4" class="txt txtP3" placeholder="Palabra clave 4" name="keyword4" />
                         </div>
+                    {% endif %}                    
                     </div>
 
                     <div class="sigBack">
-                        <a href="#paso2" class="boton backBtn ">Atrás</a>
-                        <a href="#paso4" id="add-button" class="boton">Siguiente</a>
+                        {% if language == 'english' %}
+                            <a href="#paso2" class="boton backBtn">Back</a>
+                            <a href="#paso4" id="add-button" class="boton">Next</a>
+                        {% else %}
+                             <a href="#paso2" class="boton backBtn">Atrás</a>
+                            <a href="#paso4" id="add-button" class="boton">Siguiente</a>
+                        {% endif %}
                     </div>
                 </section>
 
                 <section id="paso4">
                     <!-- <section id="paso4" onload="step3()"> -->
-                    <p class="paso"><span>Paso 4.</span> Da clic en las palabras clave para darles más relevancia al momento de crear el anuncio </p>
-
+                    {% if language == 'english' %}
+                        <p class="paso"><span>Step 4.</span> Click on the keywords to give them more relevance when creating the ad</p>
+                    {% else %}
+                        <p class="paso"><span>Paso 4.</span> Da clic en las palabras clave para darles más relevancia al momento de crear el anuncio</p>
+                    {% endif %}
+                    
                     <!-- <button id="add-button" class="boton">Agregar Palabra Clave</button> -->
                     <!-- <div id="circle-container"></div> -->
 
-                    <p id="sinPalabrasCve">No escribiste palabras clave</p>
+                    {% if language == 'english' %}
+                        <p id="sinPalabrasCve">You did not write any keywords</p>
+                    {% else %}
+                        <p id="sinPalabrasCve">No escribiste palabras clave</p>
+                    {% endif %}
+                
 
                     <div class="divCircle">
                         <div class="circle" id="c1" onclick="step4_clicPalabra('c1')">
@@ -128,52 +238,90 @@
                         </div>
                     </div>
 
+                    {% if language == 'english' %}
+                    <div class="sigBack">
+                        <a href="#paso3" class="boton backBtn ">Back</a>
+                        <a href="#paso5" id="add-button" class="boton">Next</a>
+                    </div>
+                    {% else %}
                     <div class="sigBack">
                         <a href="#paso3" class="boton backBtn ">Atrás</a>
                         <a href="#paso5" id="add-button" class="boton">Siguiente</a>
                     </div>
+                     {% endif %}
+                
                 </section>
 
                 <section id="paso5">
-                    <p class="paso"><span>Paso 5.</span> Especificaciones de la descripción del anuncio </p>
+                    {% if language == 'english' %}
+                    <p class="paso"><span>Step 5.</span> Ad description specifications</p>
+                    {% else %}
+                    <p class="paso"><span>Paso 5.</span> Especificaciones de la descripción del anuncio</p>
+                    {% endif %}
 
                     <br>
+                    {% if language == 'english' %}
+                    <input type="text" class="txt" placeholder="Business name">
+                    {% else %}
                     <input type="text" class="txt" placeholder="Nombre del negocio">
+                    {% endif %}
                     <br>
 
                     <div class="selectOptions">
                         <div class="selectOption">
-                            <p class="pstep5">Longitud: </p>
-                            <select name="length">
-                            <option value="corto" selected>Corto</option>
-                            <option value="largo">Largo</option>
-                        </select>
+                            {% if language == 'english' %}
+                                <p class="pstep5">Length: </p>
+                                <select name="length">
+                                    <option value="short" selected>Short</option>
+                                    <option value="long">Long</option>
+                                </select>
+                            {% else %}
+                                <p class="pstep5">Longitud: </p>
+                                <select name="length">
+                                    <option value="corto" selected>Corto</option>
+                                    <option value="largo">Largo</option>
+                                </select>
+                            {% endif %}
                         </div>
                         <div class="selectOption">
-                            <p class="pstep5">Tono: </p>
-                            <select name="tone">
-                                <option value="Profesional" selected>Profesional</option>
-                                <option value="Gracioso">Gracioso</option>
-                            <option value="Ingenioso">Ingenioso</option>
-                        </select>
+                            {% if language == 'english' %}
+                                <p class="pstep5">Tone: </p>
+                                <select name="tone">
+                                    <option value="professional" selected>Professional</option>
+                                    <option value="funny">Funny</option>
+                                    <option value="clever">Witty</option>
+                                </select>
+                            {% else %}
+                                <p class="pstep5">Tono: </p>
+                                <select name="tone">
+                                    <option value="Profesional" selected>Profesional</option>
+                                    <option value="Gracioso">Gracioso</option>
+                                    <option value="Ingenioso">Ingenioso</option>
+                                </select>
+                            {% endif %}
                         </div>
                     </div>
+                    
 
-                    <input type="text" class="txt" placeholder="Añade una promoción">
+                    <input type="text" class="txt" placeholder="{% if language == 'english' %}Add a promotion{% else %}Añade una promoción{% endif %}">
                     <!-- <input type="checkbox" id="prom" name="prom">
                     <label for="prom">No quiero una promoción</label> -->
 
                     <div class="sigBack smtdiv">
-                        <a href="#paso4" class="boton backBtn ">Atrás</a>
+                        <a href="#paso4" class="boton backBtn ">{% if language == 'english' %}Back{% else %}Atrás{% endif %}</a>
                         <!--<a href="#resultado" id="add-button" class="boton">Generar</a>-->
+                        <input type="hidden" name="language" value="{{ language }}">
                         <input type="hidden" name="source_page" value="Any.html">
-                        <input type="submit" id="add-button" class="boton" value="Generar">
-                    </div>
+                        <input type="submit" id="add-button" class="boton" value="{% if language == 'english' %}Generate{% else %}Generar{% endif %}">
+                    </div>                    
                 </section>
 
                 <section id="resultado">
-                    <p class="paso"><span>Tu anuncio está listo</span> <br> Así se vería tu post en instagram</p>
-
+                    <p class="paso">
+                        <span>{% if language == 'english' %}Your ad is ready{% else %}Tu anuncio está listo{% endif %}</span>
+                        <br>
+                        {% if language == 'english' %}This is how your post would look on Instagram{% else %}Así se vería tu publicación en Instagram{% endif %}
+                    </p>                    
                     <div id="instaPost">
                         <img class="instaIcon" src="{{ url_for('static', filename='img/profile.svg')}}" alt=""> {% if imagePath %}
                         <!--<img src="{{ url_for('static', filename='img/img_resultado/response_num0.png')}}" alt="" id="imageAnswer">-->

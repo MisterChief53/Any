@@ -138,21 +138,17 @@ def index():
         colors.append(request.form["color3"])
 
         description = request.form["Description"]
-        source_page = request.form["source_page"]
-        template_name = ""
-        
-        #print(f"Valor de source_page: {source_page}")
+        source_page = request.form["source_page"]        
+    
         if source_page == "Any.html":
-            system_message = "Eres un copywriter y escribes publicidad. Tus respuestas están pensadas para usarse en posts de Instagram y son de tamaño mediano"
-            generate_prompt_func = generate_prompt
-            template_name = 'Any.html'
-        elif source_page == "Any_eng.html":
-            system_message = "You are a copywriter and you write advertising. Your responses are intended for use in Instagram posts and are of medium size"
-            generate_prompt_func = generate_prompt_eng
-            template_name = 'Any_eng.html'
-        else:
-            return "Página de origen no válida"
-
+            language = request.form.get("language", "Spanish")
+            if language == "english":
+                system_message = "You are a copywriter and you write advertising. Your responses are intended for use in Instagram posts and are of medium size"
+                generate_prompt_func = generate_prompt_eng
+            else:
+                system_message = "Eres un copywriter y escribes publicidad. Tus respuestas están pensadas para usarse en posts de Instagram y son de tamaño mediano"
+                generate_prompt_func = generate_prompt
+        
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[
@@ -234,21 +230,15 @@ def index():
         
         print(f"filename to send to frontend: {filename}")
 
-        return redirect(url_for("index", result=result, fileName=destination_blob_name, imagePath=imagePath, _anchor="instaPost", source_page=source_page))
+        return redirect(url_for("index", result=result, fileName=destination_blob_name, imagePath=imagePath, _anchor="instaPost", source_page=source_page, language=language))
+
     
     destination_blob_name = request.args.get("fileName")
     result = request.args.get("result")
     imagePath = request.args.get("imagePath")
-
-    source_page = request.args.get("source_page")
-    template_name = "Any.html"
-
-    if source_page == "Any.html":
-        template_name = 'Any.html'
-    elif source_page == "Any_eng.html":
-        template_name = 'Any_eng.html'
     
-    return render_template(template_name, result=result, imagePath=imagePath, fileName=destination_blob_name)
+    language = request.args.get("language", "Spanish")
+    return render_template('any.html', result=result, imagePath=imagePath, fileName=destination_blob_name, language=language)
         
 @app.route('/importance_endpoint', methods=['POST'])
 def importance_endpoint():
@@ -277,39 +267,47 @@ def importance_endpoint():
     except Exception as e:
         print(e)
         return {'success': False}
-
-
-@app.route('/landingPage')
+    
+@app.route('/landing')
 def landingPage():
-    return render_template('landingPage.html')
-
-@app.route('/Any_eng')
-def Any_eng():
-    return render_template('Any_eng.html')
+    language = 'Spanish'  
+    return render_template('landingPage.html', language=language)
+   
+@app.route('/landing_eng')
+def landingPage_eng():
+    language = 'english'  
+    return render_template('landingPage.html', language=language)
 
 @app.route('/Any')
 def Any():
-    return render_template('Any.html')
+    language = 'Spanish'  
+    return render_template('Any.html', language=language)
 
-@app.route('/landingPage_eng')
-def landingPage_eng():
-    return render_template('landingPage_eng.html')
+@app.route('/Any_eng')
+def Any_eng():
+    language = 'english'  
+    return render_template('Any.html', language=language)
+
 
 @app.route('/iniciaSesion')
 def iniciaSesion():
-    return render_template('iniciaSesion.html')
+    language = 'Spanish'  
+    return render_template('logIn.html', language=language)
 
 @app.route('/logIn')
 def logIn():
-    return render_template('logIn.html')
+    language = 'english'  
+    return render_template('logIn.html', language=language)
 
 @app.route('/registro')
 def registro():
-    return render_template('registro.html')
+    language = 'Spanish'  
+    return render_template('registro.html', language=language)
 
 @app.route('/signUp')
 def signUp():
-    return render_template('signUp.html')
+    language = 'english' 
+    return render_template('registro.html', language=language)
 
 @app.route('/delete_image', methods=['POST'])
 def delete_image():

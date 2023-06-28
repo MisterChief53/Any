@@ -21,21 +21,34 @@
           </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav  menu_header">
-                        <a class="list_item_header" aria-current="page" href="{{ url_for('landingPage_eng') }}"> <img src="{{ url_for('static', filename='img/ANY..svg')}}" alt=""></a>
+                        <a class="list_item_header" aria-current="page" {% if language=='english' %} href="{{ url_for('landingPage_eng') }}" {% else %} href="{{ url_for('landingPage') }}" {% endif %}"> <img src="{{ url_for('static', filename='img/ANY..svg')}}" alt=""></a>
 
                         <div id="headerBtns">
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle dpdown_header" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                  Language
+                                {% if language == 'english' %}
+                                    Language
+                                {% else %}
+                                    Idioma
+                                {% endif %} 
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item active" href="#">English</a></li>
+                                    {% if language == 'english' %}
+                                    <li><a class="dropdown-item" href="{{ url_for('logIn') }}">English</a></li>
                                     <li><a class="dropdown-item" href="{{ url_for('iniciaSesion') }}">Spanish</a></li>
+                                    {% else %}
+                                    <li><a class="dropdown-item" href="{{ url_for('iniciaSesion') }}">Español</a></li>
+                                    <li><a class="dropdown-item" href="{{ url_for('logIn') }}">Ingles</a></li>
+                                    {% endif %}
                                 </ul>
                             </div>
 
+                            {% if language == 'english' %}
+                            <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('signUp') }}">Sign up</a> {% else %}
+                            <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('registro') }}">Regístrate</a> {% endif %}
+
                             <!-- <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('signUp') }}">Sign Up</a> -->
-                            <a class="list_item_header sec_boton" aria-current="page" href="{{ url_for('signUp') }}">Sign Up</a>
+                            <!-- <a class="list_item_header sec_boton" aria-current="page" href="{{ url_for('signUp') }}">Sign Up</a> -->
                         </div>
 
                     </div>
@@ -45,13 +58,15 @@
     </header>
 
     <section class="formSession">
-        <h2>Log In</h2>
+        <h2>
+            {% if language == 'english' %} Log In {% else %} Inicia Sesión {% endif %}
+        </h2>
         <form action="/login" method="POST">
-            <input type="email" id="signup-email" class="inp" name="username_or_email" placeholder="Email" required>
+            <input type="email" id="signup-email" class="inp" name="username_or_email" {% if language=='english' %} placeholder="Email" {% else %} placeholder="Correo" {% endif %} required>
             <br>
-            <input type="password" id="signup-password" class="inp" name="password" placeholder="Password" required>
+            <input type="password" id="signup-password" class="inp" name="password" {% if language=='english' %} placeholder="Password" {% else %} placeholder="Contraseña" {% endif %} required>
             <br>
-            <input type="submit" id="subBtn" value="Log In">
+            <input type="submit" id="subBtn" {% if language=='english' %} value="Log In" {% else %} value="Inicia Sesión" {% endif %}>
         </form>
 
     </section>

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>ANY | landing</title>
+    <title>{% block title %}{% endblock %}</title>
     <!-- *BOOTSTRAP CSS INTERNO -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
@@ -16,24 +16,39 @@
             <div class="container-fluid">
                 <a class="navbar-brand" href="."><img class="logo" src="." alt=""></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav  menu_header">
-                        <a class="list_item_header" aria-current="page" href="{{ url_for('landingPage') }}"> <img src="{{ url_for('static', filename='img/ANY..svg')}}" alt=""></a>
+                        <a class="list_item_header" aria-current="page" {% if language=='english' %} href="{{ url_for('landingPage_eng') }}" {% else %} href="{{ url_for('landingPage') }}" {% endif %}"> <img src="{{ url_for('static', filename='img/ANY..svg')}}" alt=""></a>
 
                         <div id="headerBtns">
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle dpdown_header" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                  Idioma
+                                    {% if language == 'english' %}
+                                        Language
+                                    {% else %}
+                                        Idioma
+                                    {% endif %}
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="{{ url_for('landingPage_eng') }}">Inglés</a></li>
-                                    <li><a class="dropdown-item active" href="#">Español</a></li>
+                                    {% if language == 'english' %}
+                                    <li><a class="dropdown-item" href="{{ url_for('landingPage_eng') }}">English</a></li>
+                                    <li><a class="dropdown-item" href="{{ url_for('landingPage') }}">Spanish</a></li>
+                                    {% else %}
+                                    <li><a class="dropdown-item" href="{{ url_for('landingPage') }}">Español</a></li>
+                                    <li><a class="dropdown-item" href="{{ url_for('landingPage_eng') }}">Ingles</a></li>
+                                    {% endif %}
                                 </ul>
-                            </div>
 
-                            <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('Any') }}">Prueba ANY</a>
+                            </div>
+                            <a class="list_item_header main_boton" aria-current="page" {% if language=='english' %} href="{{ url_for('Any_eng') }}" {% else %} href="{{ url_for('Any') }}" {% endif %}>
+                                {% if language == 'english' %}
+                            Try ANY
+                            {% else %}
+                            Probar ANY
+                            {% endif %}
+                            </a>
                         </div>
 
                     </div>
@@ -45,41 +60,47 @@
     <main>
         <section id="titulo">
             <div id="anyTitulo">
-                <h1 class="gradientLyrics">ANY.</h1>
+                <h1 class="gradientLyrics">{% if language == 'english' %}ANY.{% else %}ANY.{% endif %}</h1>
             </div>
-            <p class="paso">Diseña el anuncio que quieras, sin importar quien seas.</p>
-            <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('Any') }}">Prueba ANY</a>
+            <p class="paso">{% if language == 'english' %}Design the post you want, no matter who you are.{% else %}Diseña la publicación que quieras, no importa quién seas.{% endif %}</p>
+            <a class="list_item_header main_boton" aria-current="page" {% if language=='english' %} href="{{ url_for('Any_eng') }}" {% else %} href="{{ url_for('Any') }}" {% endif %}>
+                {% if language == 'english' %}
+            Try ANY
+            {% else %}
+            Probar ANY
+            {% endif %}
+            </a>
         </section>
 
         <section id="solo4pasos">
             <div>
-                <h2>ANY es la herramienta perfecta para crear anuncios en solo <span>4 pasos</span></h2>
+                <h2>{% if language == 'english' %}ANY is the perfect tool to design posts in just <span>4 steps</span>{% else %}ANY es la herramienta perfecta para diseñar publicaciones en solo <span>4 pasos</span>{% endif %}</h2>
             </div>
             <div class="pasosLanding">
                 <div class="stepLand">
                     <img src="{{ url_for('static', filename='img/emojione-monotone_letter-a.svg')}}" alt="">
-                    <h5>Descripción</h5>
+                    <h5>{% if language == 'english' %}Description{% else %}Descripción{% endif %}</h5>
                 </div>
                 <div class="stepLand">
                     <img src="{{ url_for('static', filename='img/colors.svg')}}" alt="">
-                    <h5>Colores</h5>
+                    <h5>{% if language == 'english' %}Colors{% else %}Colores{% endif %}</h5>
                 </div>
                 <div class="stepLand">
                     <img src="{{ url_for('static', filename='img/llave.svg')}}" alt="">
-                    <h5>Palabras Clave</h5>
+                    <h5>{% if language == 'english' %}Keywords{% else %}Palabras clave{% endif %}</h5>
                 </div>
                 <div class="stepLand">
                     <img src="{{ url_for('static', filename='img/circulos.svg')}}" alt="">
-                    <h5>Relevancia</h5>
+                    <h5>{% if language == 'english' %}Priority{% else %}Prioridad{% endif %}</h5>
                 </div>
             </div>
         </section>
 
         <section id="imgsRapidas">
             <div id="textImgsRapidas">
-                <h2>Diseña tan rápido como imaginas</strong>
-                </h2>
-                <p>En 4 simples pasos la Inteligencia Artificial te generará el anuncio ideal que tus manos no han creado pero tu mente ha imaginado</p>
+                <h2>{% if language == 'english' %}Design as fast as you imagine{% else %}Diseña tan rápido como imagines{% endif %}</h2>
+                <p>{% if language == 'english' %}In 4 simple steps, Artificial Intelligence will generate the ideal advertisement that your hands have not created but your mind has imagined.{% else %}En 4 sencillos pasos, la Inteligencia Artificial generará
+                    el anuncio ideal que tus manos no han creado pero tu mente ha imaginado.{% endif %}</p>
             </div>
 
             <div>
@@ -89,14 +110,20 @@
 
         <section id="cualquier">
             <img src="{{ url_for('static', filename='img/index/mundo.svg')}}" alt="">
-            <h2>Con <span> ANY</span> cualquier persona de cualquier lugar puede diseñar cualquier anuncio.</h2>
+            <h2>{% if language == 'english' %}With <span>ANY</span>, anyone from anywhere can design any post.{% else %}Con <span>ANY</span>, cualquiera desde cualquier lugar puede diseñar cualquier publicación.{% endif %}</h2>
         </section>
 
         <section id="masDiseño">
             <div id="txtMasDiseño">
-                <h1 class="gradientLyrics2">ANY es más que diseño</h1>
-                <p>Anuncio + Descripción + Hashtags</p>
-                <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('Any') }}">Prueba ANY</a>
+                <h1 class="gradientLyrics2">{% if language == 'english' %}ANY is more than design{% else %}ANY es más que diseño{% endif %}</h1>
+                <p>{% if language == 'english' %}Image + Description + Hashtags{% else %}Imagen + Descripción + Hashtags{% endif %}</p>
+                <a class="list_item_header main_boton" aria-current="page" {% if language=='english' %} href="{{ url_for('Any_eng') }}" {% else %} href="{{ url_for('Any') }}" {% endif %}>
+                    {% if language == 'english' %}
+                Try ANY
+                {% else %}
+                Probar ANY
+                {% endif %}
+                </a>
 
             </div>
         </section>
