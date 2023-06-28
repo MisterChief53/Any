@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, redirect, send_file
+from flask import Flask, render_template, url_for, request, redirect, send_file, session
 import openai
 import os
 from dotenv import load_dotenv
@@ -14,6 +14,7 @@ import logging
 import sys
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+import secrets
 
 # Create a custom handler that directs the log output to stderr
 handler = logging.StreamHandler(stream=sys.stderr)
@@ -93,7 +94,12 @@ bucket = client.get_bucket(buckets[0].name)
 
 
 app = Flask(__name__)
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:1234@localhost/Any'
+
+secret_key = secrets.token_hex(16)
+app.config['SECRET_KEY'] = secret_key
+
 db = SQLAlchemy(app)
 
 class Users(db.Model):
@@ -341,7 +347,11 @@ def register():
         db.session.add(new_user)
         db.session.commit()
 
-        return 'Registration successful'
+        #logic for session saving
+        user_id = username
+        session['user_id'] = user_id
+
+        return redirect(url_for('index'))
 
     return render_template('signUp.html')
 
@@ -357,11 +367,16 @@ def login():
         ).first()
 
         if user and user.check_password(password):
-            return 'Login successful'
+            #return 'Login successful'
+            user_id = username_or_email
+            session['user_id'] = user_id
+
+            return redirect(url_for('index'))
         else:
             return 'Invalid username/email or password'
 
     return render_template('logIn.html')
+
 
 
 
