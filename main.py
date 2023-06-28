@@ -238,7 +238,7 @@ def index():
     imagePath = request.args.get("imagePath")
     
     language = request.args.get("language", "Spanish")
-    return render_template('any.html', result=result, imagePath=imagePath, fileName=destination_blob_name, language=language)
+    return render_template('Any.html', result=result, imagePath=imagePath, fileName=destination_blob_name, language=language)
         
 @app.route('/importance_endpoint', methods=['POST'])
 def importance_endpoint():
