@@ -26,15 +26,8 @@ handler.setFormatter(formatter)
 # Add the handler to the root logger
 logging.getLogger().addHandler(handler)
 
-
 imagePath = ""
 filename = ""
-
-'''
-credentialsFile = os.environ['GOOGLE_APPLICATION_CREDENTIALS_JSON']
-relative_credentials_path = './credentials/' + credentialsFile
-absolute_credentials_path = os.path.abspath(relative_credentials_path)
-'''
 
 logging.warning('Assigning credentials')
 
@@ -52,7 +45,6 @@ else:
 logging.warning(flag)
 logging.warning(google_private_key)
 
-
 google_client_email = os.environ.get('CLIENT_EMAIL')
 google_client_id = os.environ.get('CLIENT_ID')
 google_auth_uri = os.environ.get('AUTH_URI')
@@ -60,7 +52,6 @@ google_token_uri = os.environ.get('TOKEN_URI')
 google_auth_provider_x509_cert_url = os.environ.get('AUTH_PROVIDER_X509_CERT_URL')
 google_client_x509_cert_url = os.environ.get('CLIENT_X509_CERT_URL')
 google_universe_domain = os.environ.get('UNIVERSE_DOMAIN')
-
 
 credentialsJson = {
     "type": google_type,
@@ -91,7 +82,6 @@ for bucket in client.list_buckets():
 #I tried giving it a string in the .env file but it didn't work
 buckets = list(client.list_buckets())
 bucket = client.get_bucket(buckets[0].name)
-
 
 app = Flask(__name__)
 
@@ -138,7 +128,13 @@ def index():
         colors.append(request.form["color3"])
 
         description = request.form["Description"]
-        source_page = request.form["source_page"]        
+        source_page = request.form["source_page"]
+        
+        #step 5
+        businessName = request.form["businessName"]
+        length = request.form["length"]
+        tone = request.form["tone"]
+        promotion = request.form["promotion"]
     
         if source_page == "Any.html":
             language = request.form.get("language", "Spanish")
@@ -153,7 +149,7 @@ def index():
             model="gpt-3.5-turbo",
             messages=[
                {"role": "system", "content": system_message},
-                {"role": "user", "content": generate_prompt_func(keywords, description, importanceArray)}
+                {"role": "user", "content": generate_prompt_func(keywords, description, importanceArray, businessName, length, tone, promotion)}
                 ],
             temperature = 0.6,
             #max_tokens = 3000
@@ -173,7 +169,7 @@ def index():
         for color in colors:
             print(color)
             color_list = color_list + f" {color},"
-        image_prompt = generate_prompt(keywords, description, importanceArray) + f"The image should also prominently feature these colors: "
+        image_prompt = generate_prompt(keywords, description, importanceArray, businessName, length, tone, promotion) + f"The image should also prominently feature these colors: "
 
         response = requests.post(
             stability_url,
@@ -202,20 +198,6 @@ def index():
 
         img_data = response.json()
         filename = str(uuid.uuid4()) + ".png"
-        '''
-        if 'VERCEL' in os.environ:
-            imagePath = ""
-        else:
-            imagePath = "img/img_resultado/" + filename
-
-        
-        for i, image in enumerate(img_data["artifacts"]):
-            if 'VERCEL' in os.environ:
-                print("Vercel detected, no img")
-            else:
-                with open("static/" + imagePath, "w+b") as f:
-                    f.write(base64.b64decode(image["base64"]))
-        '''
 
         destination_blob_name = "img/img_resultado/" + filename
 
@@ -232,13 +214,17 @@ def index():
 
         return redirect(url_for("index", result=result, fileName=destination_blob_name, imagePath=imagePath, _anchor="instaPost", source_page=source_page, language=language))
 
-    
     destination_blob_name = request.args.get("fileName")
     result = request.args.get("result")
     imagePath = request.args.get("imagePath")
-    
     language = request.args.get("language", "Spanish")
-    return render_template('Any.html', result=result, imagePath=imagePath, fileName=destination_blob_name, language=language)
+
+    if 'user_id' in session:
+        user_id = session['user_id']
+    else:
+        user_id = False
+
+    return render_template('Any.html', result=result, imagePath=imagePath, fileName=destination_blob_name, language=language, user_id=user_id)
         
 @app.route('/importance_endpoint', methods=['POST'])
 def importance_endpoint():
@@ -378,7 +364,7 @@ def login():
 
 
 
-def generate_prompt(keywords, description, importanceArray):
+def generate_prompt(keywords, description, importanceArray, businessName, length, tone, promotion):
     keyword_list = ""
     for keyword in keywords:
         print(keyword)
@@ -391,9 +377,12 @@ def generate_prompt(keywords, description, importanceArray):
         enfasis = enfasis + f" {keywords[i]},"
 
 
-    prompt = f"""Necesito un anuncio para una empresa que tiene que ver con los siguientes conceptos: {keyword_list}. 
+    prompt = f"""Necesito un {length} anuncio para una empresa que tiene que ver con los siguientes conceptos: {keyword_list}. 
     De esos mismos conceptos, quiero que hagas enfasis en: {enfasis}.
     Breve descripcion de mi empresa: {description}.
+    El nombre de mi empresa es: {businessName}.
+    El tono para este anuncio debe ser {tone}.
+    Si tenemos una promocion, eso significa que los siguientes parentesis van a tener caracteres entre ellos: ({promotion}). Si tenemos una promocion, porfavor ponla en el anuncio.
     El anuncio publicitario idealmente tiene que ser apto para mostrarse tanto en redes sociales como en algun billboard. 
     Despues de mandarme el parrafo, necesito que me generes unos hashtags que tengan que ver con lo que dice el anuncio. 
     Estos hashtags van a estar en una sola linea, separados por espacios.
@@ -405,7 +394,7 @@ def generate_prompt(keywords, description, importanceArray):
 
     return prompt
 
-def generate_prompt_eng(keywords, description, importanceArray):
+def generate_prompt_eng(keywords, description, importanceArray, businessName, length, tone, promotion):
     keyword_list = ""
     for keyword in keywords:
         print(keyword)
@@ -417,9 +406,12 @@ def generate_prompt_eng(keywords, description, importanceArray):
     for i in true_indices:
         enfasis = enfasis + f" {keywords[i]},"
 
-    prompt = f"""I need an advertisement for a company related to the following concepts: {keyword_list}.
+    prompt = f"""I need a {length} advertisement for a company related to the following concepts: {keyword_list}.
     Out of these concepts, I want you to emphasize: {enfasis}.
     Brief description of my company: {description}.
+    The name of my business is: {businessName}.
+    The tone of this ad should be {tone}.
+    If we are holding a promotion, that means that the following parenthesis will have characters between them: ({promotion}). If we do have a promotion, please also advertise it. 
     The advertisement should ideally be suitable for display on both social media and a billboard.
     After you send me the paragraph, I need you to generate some hashtags that are relevant to the content of the advertisement.
     These hashtags should be in a single line, separated by spaces.

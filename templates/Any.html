@@ -42,17 +42,20 @@
                                     {% endif %}
                                     </ul>
                                 </div>
-                            
-                            
-                                {% if language == 'english' %}
-                                    <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('signUp') }}">Sign up</a>
-                                    <a class="list_item_header sec_boton" aria-current="page" href="{{ url_for('logIn') }}">Log in</a>
-                                {% else %}
-                                    <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('registro') }}">Regístrate</a>
-                                    <a class="list_item_header sec_boton" aria-current="page" href="{{ url_for('iniciaSesion') }}">Inicia Sesión</a>
-                                {% endif %}
-                            </div>
+                           
+			   	{% if user_id %}
+					<a class="list_item_header main_boton" aria-current="page" href="{{ url_for('Logout') }}">Logout</a>
+				{% else %}
+					{% if language == 'english' %}
+					    <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('signUp') }}">Sign up</a>
+					    <a class="list_item_header sec_boton" aria-current="page" href="{{ url_for('logIn') }}">Log in</a>
+					{% else %}
+					    <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('signUp') }}">Regístrate</a>
+					    <a class="list_item_header sec_boton" aria-current="page" href="{{ url_for('logIn') }}">Inicia Sesión</a>
+					{% endif %}
+				{% endif %}
 
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -261,9 +264,9 @@
 
                     <br>
                     {% if language == 'english' %}
-                    <input type="text" class="txt" placeholder="Business name">
+                    <input type="text" class="txt" placeholder="Business name" name="businessName">
                     {% else %}
-                    <input type="text" class="txt" placeholder="Nombre del negocio">
+                    <input type="text" class="txt" placeholder="Nombre del negocio" name="businessName">
                     {% endif %}
                     <br>
 
@@ -303,7 +306,7 @@
                     </div>
                     
 
-                    <input type="text" class="txt" placeholder="{% if language == 'english' %}Add a promotion{% else %}Añade una promoción{% endif %}">
+                    <input type="text" class="txt" placeholder="{% if language == 'english' %}Add a promotion{% else %}Añade una promoción{% endif %}" name="promotion">
                     <!-- <input type="checkbox" id="prom" name="prom">
                     <label for="prom">No quiero una promoción</label> -->
 
