@@ -67,12 +67,33 @@
         </h2>
         
         <form action="/register" method="POST">
-            <input type="text" id="signup-name" class="inp" name="username" placeholder="{% if language == 'english' %}Name{% else %}Nombre{% endif %}" required>
+            <input type="text" id="signup-name" class="inp" name="username" oninput="cuentaCaracteres(this.id)" placeholder="{% if language == 'english' %}Name{% else %}Nombre{% endif %}" required>
+            <p class="numChar">
+                {% if language == 'english' %}
+                    <span id="charCountName"></span> / 50 characters
+                {% else %}
+                    <span id="charCountName"></span> / 50 caracteres
+                {% endif %}
+            </p>
             <br>
-            <input type="email" id="signup-email" class="inp" name="email" placeholder="{% if language == 'english' %}Email{% else %}Correo{% endif %}" required>
+            <input type="email" id="signup-email" class="inp" name="email" oninput="cuentaCaracteres(this.id)"  placeholder="{% if language == 'english' %}Email{% else %}Correo{% endif %}" required>
+            <p class="numChar">
+                {% if language == 'english' %}
+                    <span id="charCountEmail"></span> / 50 characters
+                {% else %}
+                    <span id="charCountEmail"></span> / 50 caracteres
+                {% endif %}
+            </p>
             <br>
-            <input type="password" id="signup-password" class="inp" name="password" placeholder="{% if language == 'english' %}Password{% else %}Contraseña{% endif %}" required>
-            <br>
+            <input type="password" id="signup-password" class="inp" name="password" oninput="cuentaCaracteres(this.id)"  placeholder="{% if language == 'english' %}Password{% else %}Contraseña{% endif %}" required>
+            <p class="numChar">
+                {% if language == 'english' %}
+                    <span id="charCountPassword"></span> / 50 characters
+                {% else %}
+                    <span id="charCountPassword"></span> / 50 caracteres
+                {% endif %}
+            </p>
+            <br>            
             <input type="checkbox" id="remember-me" name="remember-me">
             <label for="remember-me">
                 {% if language == 'english' %}
@@ -89,6 +110,8 @@
 
     <!-- *BOOTSTRAP JS INTERNO -->
     <script src="{{ url_for('static', filename='js/bootstrap.min.js')}} "></script>
+    <script src="{{ url_for('static', filename='js/script_LogIn_SignUp.js')}} "></script>
+
 
 </body>
 

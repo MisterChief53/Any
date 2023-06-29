@@ -58,13 +58,27 @@
     </header>
 
     <section class="formSession">
-        <h2>
+        <h2>     
             {% if language == 'english' %} Log In {% else %} Inicia Sesión {% endif %}
         </h2>
         <form action="/login" method="POST">
-            <input type="email" id="signup-email" class="inp" name="username_or_email" {% if language=='english' %} placeholder="Email" {% else %} placeholder="Correo" {% endif %} required>
+            <input type="email" id="signup-email" class="inp" name="username_or_email" oninput="cuentaCaracteres(this.id)" {% if language=='english' %} placeholder="Email" {% else %} placeholder="Correo" {% endif %} required>
+            <p class="numChar">
+                {% if language == 'english' %}
+                    <span id="charCountEmail"></span> / 50 characters
+                {% else %}
+                    <span id="charCountEmail"></span> / 50 caracteres
+                {% endif %}
+            </p>
             <br>
-            <input type="password" id="signup-password" class="inp" name="password" {% if language=='english' %} placeholder="Password" {% else %} placeholder="Contraseña" {% endif %} required>
+            <input type="password" id="signup-password" class="inp" name="password" oninput="cuentaCaracteres(this.id)" {% if language=='english' %} placeholder="Password" {% else %} placeholder="Contraseña" {% endif %} required>
+            <p class="numChar">
+                {% if language == 'english' %}
+                    <span id="charCountPassword"></span> / 50 characters
+                {% else %}
+                    <span id="charCountPassword"></span> / 50 caracteres
+                {% endif %}
+            </p>
             <!-- <br> -->
             <p class="errorLogin">
                 {% if language == 'english' and error_message %} Invalid username/email or password {% elif error_message %} Correo o contraseña inválidos {% endif %}
@@ -72,11 +86,12 @@
             <br>
             <input type="submit" id="subBtn" {% if language=='english' %} value="Log In" {% else %} value="Inicia Sesión" {% endif %}>
         </form>
-
+        
     </section>
 
     <!-- *BOOTSTRAP JS INTERNO -->
     <script src="{{ url_for('static', filename='js/bootstrap.min.js')}} "></script>
+    <script src="{{ url_for('static', filename='js/script_LogIn_SignUp.js')}} "></script>
 
 </body>
 
