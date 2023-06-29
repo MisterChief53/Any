@@ -44,7 +44,7 @@
                                 </div>
                            
 			   	{% if user_id %}
-					<a class="list_item_header main_boton" aria-current="page" href="{{ url_for('Logout') }}">Logout</a>
+					<a class="list_item_header main_boton" aria-current="page" href="{{ url_for('logout') }}">Logout</a>
 				{% else %}
 					{% if language == 'english' %}
 					    <a class="list_item_header main_boton" aria-current="page" href="{{ url_for('signUp') }}">Sign up</a>

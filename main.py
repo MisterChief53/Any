@@ -371,8 +371,10 @@ def login():
     error_message = request.args.get("error_message")
     return render_template('logIn.html', error_message=error_message)
 
-
-
+@app.route('/logout', methods=['GET', 'POST'])
+def logout():
+    session.clear()
+    return render_template('Any.html')
 
 
 def generate_prompt(keywords, description, importanceArray, businessName, length, tone, promotion):
