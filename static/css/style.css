@@ -159,6 +159,6 @@
   
   @media screen and (max-width: 991px) {
       #headerBtns {
-          display: none;
+          flex-direction: column;
       }
   }
