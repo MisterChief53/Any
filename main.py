@@ -320,30 +320,37 @@ def delete_image():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        username = request.form['username']
-        email = request.form['email']
-        password = request.form['password']
+        username = None
+        try:
+            username = request.form['username']
+            email = request.form['email']
+            password = request.form['password']
 
-        # Check if the username or email already exists in the database
-        existing_user = Users.query.filter(
-            (Users.username == username) | (Users.email == email)
-        ).first()
-        if existing_user:
-            return 'Username or email already exists'
+            # Check if the username or email already exists in the database
+            existing_user = Users.query.filter(
+                (Users.username == username) | (Users.email == email)
+            ).first()
+            if existing_user:
+                return 'Username or email already exists'
 
-        new_user = Users(username=username, email=email)
-        new_user.set_password(password)
+            new_user = Users(username=username, email=email)
+            new_user.set_password(password)
 
-        db.session.add(new_user)
-        db.session.commit()
+            db.session.add(new_user)
+            db.session.commit()
+            logging.warning("this somehow works?")
+        except Exception as e:
+            logging.warning(e)
+            print(e)
 
-        #logic for session saving
-        user_id = username
-        session['user_id'] = user_id
+        if username is not None:
+            #logic for session saving
+            user_id = username
+            session['user_id'] = user_id
 
         return redirect(url_for('index'))
 
-    return render_template('signUp.html')
+    return render_template('registro.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
