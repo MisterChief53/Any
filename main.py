@@ -146,7 +146,7 @@ def index():
                 generate_prompt_func = generate_prompt
         
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model="gpt-3.5-turbo-16k",
             messages=[
                {"role": "system", "content": system_message},
                 {"role": "user", "content": generate_prompt_func(keywords, description, importanceArray, businessName, length, tone, promotion)}
@@ -194,7 +194,12 @@ def index():
         )
 
         if response.status_code != 200:
-            raise Exception("Non-200 response: " + str(response.text))
+            #raise Exception("Non-200 response: " + str(response.text))
+            error = "Invalid prompt/promp invalido, la IA no acepta las palabras que tienes para generar la imagen/The AI generation for the image does not work with the words you used."
+            return redirect(url_for("index", result=result, fileName="", imagePath=imagePath, _anchor="instaPost", source_page=source_page, language=language, error=error))
+        else:
+            error = False
+
 
         img_data = response.json()
         filename = str(uuid.uuid4()) + ".png"
@@ -212,19 +217,20 @@ def index():
         
         print(f"filename to send to frontend: {filename}")
 
-        return redirect(url_for("index", result=result, fileName=destination_blob_name, imagePath=imagePath, _anchor="instaPost", source_page=source_page, language=language))
+        return redirect(url_for("index", result=result, fileName=destination_blob_name, imagePath=imagePath, _anchor="instaPost", source_page=source_page, language=language, error=error))
 
     destination_blob_name = request.args.get("fileName")
     result = request.args.get("result")
     imagePath = request.args.get("imagePath")
     language = request.args.get("language", "Spanish")
+    error = request.args.get("error")
 
     if 'user_id' in session:
         user_id = session['user_id']
     else:
         user_id = False
 
-    return render_template('Any.html', result=result, imagePath=imagePath, fileName=destination_blob_name, language=language, user_id=user_id)
+    return render_template('Any.html', result=result, imagePath=imagePath, fileName=destination_blob_name, language=language, user_id=user_id, error=error)
         
 @app.route('/importance_endpoint', methods=['POST'])
 def importance_endpoint():

@@ -340,8 +340,10 @@
                             {{ result }}
                         </p>
                         {% endif %}
-
                     </div>
+		    {% if error %}
+		    <h3>{{ error }} </h3>
+		    {% endif %}
                     {% if imagePath %}
                     <!-- <a href="{{ url_for('static', filename=imagePath)}}" download="nombre-de-la-imagen.jpg" class="boton">Descargar imagen</a> -->
                     <!-- <a href="{{ imagePath }}" download="nombre-de-la-imagen.jpg" class="boton" download>Descargar imagen</a> -->
