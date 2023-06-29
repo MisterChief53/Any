@@ -65,6 +65,11 @@
             <input type="email" id="signup-email" class="inp" name="username_or_email" {% if language=='english' %} placeholder="Email" {% else %} placeholder="Correo" {% endif %} required>
             <br>
             <input type="password" id="signup-password" class="inp" name="password" {% if language=='english' %} placeholder="Password" {% else %} placeholder="Contraseña" {% endif %} required>
+            <!-- <br> -->
+            <p class="errorLogin">
+                {% if language == 'english' and error_message == 'Invalid username/email or password' %} Invalid username/email or password {% elif language == 'Spanish' and error_message == 'Invalid username/email or password' %} Correo o contraaseña inválidos {% endif
+                %}
+            </p>
             <br>
             <input type="submit" id="subBtn" {% if language=='english' %} value="Log In" {% else %} value="Inicia Sesión" {% endif %}>
         </form>

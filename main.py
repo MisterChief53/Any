@@ -348,6 +348,7 @@ def register():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    error_message = None
     if request.method == 'POST':
         username_or_email = request.form['username_or_email']
         password = request.form['password']
@@ -363,9 +364,10 @@ def login():
 
             return redirect(url_for('index'))
         else:
-            return 'Invalid username/email or password'
+            error_message = 'Invalid username/email or password'
+            return error_message
 
-    return render_template('logIn.html')
+    return render_template('logIn.html', error_message=error_message)
 
 
 

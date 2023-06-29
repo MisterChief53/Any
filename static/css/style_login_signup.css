@@ -73,3 +73,7 @@
 #subBtn:hover {
     background-color: #2775ac;
 }
+
+.errorLogin {
+    color: red;
+}
