@@ -148,7 +148,7 @@ def index():
             return "Página de origen no válida"
 
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model="gpt-3.5-turbo-16k",
             messages=[
                {"role": "system", "content": system_message},
                 {"role": "user", "content": generate_prompt_func(keywords, description, importanceArray)}
@@ -356,6 +356,7 @@ def register():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    error_message = None
     if request.method == 'POST':
         username_or_email = request.form['username_or_email']
         password = request.form['password']
@@ -367,9 +368,10 @@ def login():
         if user and user.check_password(password):
             return 'Login successful'
         else:
-            return 'Invalid username/email or password'
+            error_message = 'Invalid username/email or password'
+            return error_message
 
-    return render_template('logIn.html')
+    return render_template('logIn.html', error_message=error_message)
 
 
 
