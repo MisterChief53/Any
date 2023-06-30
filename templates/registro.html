@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style_any.css')}}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style_login_signup.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_modals.css')}}">
     <link rel="any icon" href="{{ url_for('static', filename='img/ANY..svg')}}">
 </head>
 
@@ -97,9 +98,9 @@
             <input type="checkbox" id="remember-me" name="remember-me">
             <label for="remember-me">
                 {% if language == 'english' %}
-                    I agree to the <a href="">terms and conditions</a>
+                    I agree to the <span id="OpenNodalBtn">terms and conditions</span>
                 {% else %}
-                    Acepto los <a href="">términos y condiciones</a>
+                    Acepto los <span id="OpenNodalBtn">términos y condiciones</span>
                 {% endif %}
             </label>
             <br>
@@ -108,9 +109,20 @@
         
     </section>
 
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 id="esteTuContrato">Términos y condiciones</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis necessitatibus facilis placeat animi dolores tenetur optio natus atque inventore ratione! Fuga dolore, architecto consequuntur, quod dicta quae, voluptatem sit ducimus impedit quidem nostrum id est. Sunt, aliquid. Quae harum, ab tenetur suscipit, earum ex, sit quasi maxime consequatur commodi veniam.</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis necessitatibus facilis placeat animi dolores tenetur optio natus atque inventore ratione! Fuga dolore, architecto consequuntur, quod dicta quae, voluptatem sit ducimus impedit quidem nostrum id est. Sunt, aliquid. Quae harum, ab tenetur suscipit, earum ex, sit quasi maxime consequatur commodi veniam.</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis necessitatibus facilis placeat animi dolores tenetur optio natus atque inventore ratione! Fuga dolore, architecto consequuntur, quod dicta quae, voluptatem sit ducimus impedit quidem nostrum id est. Sunt, aliquid. Quae harum, ab tenetur suscipit, earum ex, sit quasi maxime consequatur commodi veniam.</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis necessitatibus facilis placeat animi dolores tenetur optio natus atque inventore ratione! Fuga dolore, architecto consequuntur, quod dicta quae, voluptatem sit ducimus impedit quidem nostrum id est. Sunt, aliquid. Quae harum, ab tenetur suscipit, earum ex, sit quasi maxime consequatur commodi veniam.</p>
+    </div>
+
     <!-- *BOOTSTRAP JS INTERNO -->
     <script src="{{ url_for('static', filename='js/bootstrap.min.js')}} "></script>
     <script src="{{ url_for('static', filename='js/script_LogIn_SignUp.js')}} "></script>
+    <script src="{{ url_for('static', filename='js/script_modals.js')}} "></script>
 
 
 </body>
