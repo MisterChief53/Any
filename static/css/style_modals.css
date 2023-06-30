@@ -39,7 +39,7 @@
 /* --------------------------------- */
 
 #esteTuContrato {
-    color: #C38937;
+    color: #2D81BE;
     font-weight: 700;
     font-size: 35px;
     margin-bottom: 20px;
@@ -75,5 +75,6 @@
 }
 
 #openModalBtn {
+    color: #2D81BE;
     cursor: pointer;
 }
