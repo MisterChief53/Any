@@ -1,5 +1,5 @@
 .formSession {
-    height: 100vh;
+    /* height: 100vh; */
     display: flex;
     /* flex-direction: row; */
     flex-direction: column;
@@ -11,6 +11,7 @@
 }
 
 .formSession h2 {
+    margin-top: 100px;
     color: #2D81BE;
     font-weight: 800;
     font-size: 50px;
@@ -30,7 +31,7 @@
 
 .inp {
     /* width: 100%; */
-    margin-bottom: 30px;
+    margin-bottom: 1px;
     /* border-radius: 50px; */
     width: 100%;
     border: none;
@@ -67,7 +68,7 @@
     background-color: #2D81BE;
     color: white;
     font-weight: 800;
-    /* margin-top: 30px; */
+    margin-bottom: 80px;
 }
 
 #subBtn:hover {
