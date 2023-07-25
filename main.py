@@ -15,6 +15,9 @@ import sys
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import secrets
+import csv
+import io
+from flask import make_response
 
 # Create a custom handler that directs the log output to stderr
 handler = logging.StreamHandler(stream=sys.stderr)
@@ -383,6 +386,25 @@ def logout():
     session.clear()
     return render_template('Any.html')
 
+@app.route('/download_csv')
+def download_csv():
+    users = Users.query.all()
+
+    user_data = [{'username': user.username, 'email': user.email} for user in users]
+
+    fieldnames = ['Username', 'Email']
+
+    csv_data = io.StringIO()
+    csv_writer = csv.DictWriter(csv_data, fieldnames=fieldnames)
+    csv_writer.writeheader()
+    csv_writer.writerows(user_data)
+
+    response = make_response(csv_data.getvalue())
+    response.headers['Content-Disposition'] = 'attachment; filename=users.csv'
+    response.headers['Content-Type'] = 'text/csv'
+
+    return response
+
 
 def generate_prompt(keywords, description, importanceArray, businessName, length, tone, promotion):
     keyword_list = ""
@@ -446,3 +468,4 @@ def generate_prompt_eng(keywords, description, importanceArray, businessName, le
 if __name__ == "__main__":
     app.run(debug=True)
 
+##<a href="{{ url_for('download_csv') }}" class="btn btn-primary">Descargar CSV</a>
